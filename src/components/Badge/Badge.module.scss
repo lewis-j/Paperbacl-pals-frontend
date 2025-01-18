@@ -1,0 +1,21 @@
+@use "../../style/variables" as *;
+
+.Badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: bold;
+  max-width: fit-content;
+  &-library {
+    background-color: $accepted-color;
+    color: white;
+  }
+  &-request {
+    background-color: $pending-color;
+    color: white;
+  }
+  &-returnRequested {
+    background-color: $return-requested-color;
+    color: white;
+  }
+}

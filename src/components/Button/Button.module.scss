@@ -1,0 +1,91 @@
+@use "../../style/variables" as *;
+@use "sass:color";
+
+.btn {
+  min-width: 120px;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease-in-out;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    transform: scale(0.98);
+  }
+}
+
+// Variants
+.primary {
+  background-color: $accepted-color;
+  color: $dark-background-font-color;
+
+  &:hover:not(:disabled) {
+    @include hover-link;
+  }
+}
+
+.secondary {
+  background-color: $decline-color;
+  color: $dark-background-font-color;
+
+  &:hover:not(:disabled) {
+    @include hover-link;
+  }
+}
+
+.cancel {
+  background-color: $grey-2;
+  color: $secondary-color;
+
+  &:hover:not(:disabled) {
+    background-color: color.adjust($grey-2, $lightness: -5%);
+  }
+}
+
+// Sizes
+.sm {
+  min-width: 100px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.lg {
+  min-width: 140px;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+}
+
+// Special variants
+.menu-white-outline {
+  padding: 0.25rem;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.829);
+    color: $dark-accent;
+  }
+}
+
+.granite-outline {
+  background-color: transparent;
+  border: 2px solid $dark-accent;
+  color: $dark-accent;
+
+  &:hover:not(:disabled) {
+    background-color: $dark-accent;
+    color: white;
+  }
+}

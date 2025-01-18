@@ -1,0 +1,7 @@
+.sectionWrapper {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  min-height: 0; // Prevents grid blowout
+  margin-bottom: 4rem;
+}

@@ -1,0 +1,52 @@
+@use "../../../../style/variables" as *;
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 4rem;
+  padding: 0.75rem 1.25rem;
+  position: relative;
+  box-shadow: $standard-box-shadow;
+  border-radius: 0.5rem;
+  background-color: $grey-1;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: $standard-box-shadow-hover;
+  }
+}
+
+.username {
+  margin-left: 1rem;
+  font-weight: 500;
+  flex: 1;
+  color: $primary-color;
+}
+@mixin icon {
+  white-space: nowrap;
+  margin-right: 0.5em;
+  font-size: 0.98em;
+}
+.pendingIcon {
+  color: $grey-5;
+  @include icon;
+}
+.friendIcon {
+  color: $add-color;
+  @include icon;
+}
+
+.requestButton {
+  min-width: auto !important;
+  padding: 0.5rem 1rem !important;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}

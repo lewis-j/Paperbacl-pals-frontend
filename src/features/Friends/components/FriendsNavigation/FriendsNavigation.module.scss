@@ -1,0 +1,37 @@
+@use "../../../../style/variables" as *;
+
+.nav {
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  background-color: $heading-color;
+  height: 2em;
+  padding-left: 1em;
+  line-height: 2;
+  color: $grey-4;
+  box-shadow: -1px 1px 4px $box-shadow-sharp;
+  z-index: 50;
+}
+
+.nav_item {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  //   border: solid 1px $grey-4;
+  &:hover {
+    color: white;
+    cursor: pointer;
+  }
+}
+
+.icon {
+  transition: 1s;
+}
+
+.iconRotate {
+  transform: rotate(90deg);
+}
+
+.active {
+  color: $grey-2;
+  filter: drop-shadow(2px 2px 4px $grey-2);
+}

@@ -1,0 +1,86 @@
+@use "../../../../../style/variables" as *;
+
+.container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1em auto;
+  box-shadow: $standard-box-shadow;
+  background-color: $grey-1;
+  border-radius: 0.25rem;
+}
+.progress {
+  height: 0.5em;
+}
+
+.progressContainer {
+  padding: 0.5em;
+  box-shadow: inset 1px 1px 5px $shadow-color;
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
+  background-color: $grey-2;
+}
+.imgContainer {
+  width: 100%;
+}
+
+.coverImg {
+  display: block;
+  max-width: 15em;
+  margin: 0 auto;
+  width: 100%;
+  padding: 27px;
+}
+
+.body {
+  flex-basis: 100%;
+}
+
+@media (min-width: 540px) {
+  .imgContainer {
+    flex-basis: 33%;
+  }
+  .body {
+    flex-basis: 66%;
+  }
+}
+.menuBtn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.menuClose {
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  color: white;
+}
+
+.menu {
+  position: absolute;
+  top: 0px;
+  display: flex;
+  flex-direction: column;
+  padding: 1em 1em;
+  height: 100%;
+  width: 100%;
+  background-color: $menu-background;
+}
+
+.menuItems {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.menuItem {
+  width: 50%;
+}
+
+@media (max-width: 540px) {
+  .menuItem {
+    width: 100%;
+  }
+}

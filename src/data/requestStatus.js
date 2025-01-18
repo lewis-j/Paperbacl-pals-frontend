@@ -1,0 +1,11 @@
+const requestStatus = {
+  CHECKED_IN: "CHECKED_IN",
+  ACCEPTED: "ACCEPTED",
+  SENDING: "SENDING",
+  CHECKED_OUT: "CHECKED_OUT",
+  RETURN_REQUESTED: "RETURN_REQUESTED",
+  IS_DUE: "IS_DUE",
+  RETURNING: "RETURNING",
+  RETURNED: "RETURNED",
+};
+export default requestStatus;

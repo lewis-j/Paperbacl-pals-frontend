@@ -1,0 +1,187 @@
+@use "../../../../style/variables" as *;
+@use "sass:color";
+
+.container {
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.profileSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.profilePic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 16px;
+}
+
+.username {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.infoSection {
+  margin-bottom: 24px;
+}
+
+.infoItem {
+  display: flex;
+  padding: 12px 0;
+  border-bottom: 1px solid $grey-2;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.label {
+  font-weight: 600;
+  min-width: 120px;
+  color: $secondary-color;
+}
+
+.value {
+  color: $dark-accent;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+
+  button {
+    padding: 10px 24px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.addFriend {
+  background-color: $accepted-color;
+  color: $dark-background-font-color;
+}
+
+.message {
+  background-color: $dark-accent;
+  color: $dark-background-font-color;
+}
+
+.formContainer {
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background-color: white;
+  max-width: 500px;
+  width: 100%;
+}
+
+.confirmation {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  color: $dark-accent;
+}
+
+.errorMessage {
+  background-color: rgba($decline-color, 0.1);
+  color: $decline-color;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.resultContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.statusMessage {
+  font-size: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+
+  &.success {
+    color: $accepted-color;
+  }
+
+  &.error {
+    color: $decline-color;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.closeButton,
+.cancelButton {
+  background-color: $grey-2;
+  color: $secondary-color;
+
+  &:hover:not(:disabled) {
+    background-color: color.adjust($grey-2, $lightness: -5%);
+  }
+}
+
+.secondaryButton {
+  background-color: $decline-color;
+  color: $dark-background-font-color;
+
+  &:hover:not(:disabled) {
+    @include hover-link;
+  }
+}
+
+.submitButton {
+  background-color: $accepted-color;
+  color: $dark-background-font-color;
+
+  &:hover:not(:disabled) {
+    @include hover-link;
+  }
+}
+
+.cancelButton,
+.secondaryButton,
+.submitButton {
+  min-width: 120px;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease-in-out;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    transform: scale(0.98);
+  }
+}

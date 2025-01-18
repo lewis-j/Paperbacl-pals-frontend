@@ -1,0 +1,10 @@
+@use "../../../../../style/variables" as *;
+.UserBookCard {
+  &__container {
+    box-shadow: $standard-box-shadow;
+    background-color: $grey-1;
+  }
+  &__progress {
+    height: 0.5em;
+  }
+}

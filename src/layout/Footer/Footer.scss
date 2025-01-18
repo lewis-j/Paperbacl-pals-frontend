@@ -1,0 +1,20 @@
+.Footer {
+  background-color: #666461;
+  &__icons {
+    padding: 1em;
+    font-size: 2em;
+  }
+  &__other {
+    padding-top: 2em;
+  }
+  &__copyright {
+    text-align: center;
+    &::before {
+      content: "";
+      position: absolute;
+      width: 90%;
+      left: 5%;
+      border-top: 1px solid #00000040;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@use "../../../style/variables" as *;
+
+$border: 1px solid $dark-accent;
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.paginationLink {
+  color: $dark-accent;
+  border: $border;
+}
+
+.paginationLink:hover,
+.paginationLink:active {
+  cursor: pointer;
+  color: $grey-1;
+  background-color: $secondary-color;
+  border: $border;
+}

@@ -1,0 +1,179 @@
+@use "../../../../style/variables" as *;
+
+.navbar {
+  background-image: linear-gradient($gradient-color-1, #ababab);
+  z-index: 2;
+  box-shadow: 1px 1px 3px #6e6e6e;
+  padding: 0.75rem 1rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  display: flex;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    height: $desktop-nav-height;
+  }
+}
+
+.navContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 1rem;
+  @media (max-width: 1090px) {
+    padding: 0;
+    gap: 0;
+  }
+}
+
+.logo {
+  flex-grow: 0; /* Won't grow */
+  flex-shrink: 0;
+  width: 14rem;
+  filter: drop-shadow(1px 2px 8px $grey-10);
+  cursor: pointer;
+  flex-shrink: 0;
+
+  &:hover {
+    transform: scale(0.98);
+  }
+}
+
+.primaryNav {
+  display: flex;
+  gap: 1rem;
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 200px;
+  text-align: center;
+  align-items: center;
+  height: 100%;
+
+  @media (min-width: 992px) {
+    margin-right: 1em;
+    margin-left: 1rem;
+  }
+  @media (max-width: 991px) {
+    gap: 0;
+  }
+}
+
+.navLink,
+.activeNavLink {
+  color: white;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  height: fit-content;
+  white-space: nowrap;
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    color: $grey-1;
+    transform: scale(1.02);
+  }
+}
+
+.activeNavLink {
+  color: $grey-1;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.searchContainer {
+  flex-grow: 2;
+  flex-shrink: 0;
+  margin: 0 1rem;
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  min-width: 275px;
+  max-width: none;
+  justify-content: flex-end;
+}
+
+.searchInput {
+  width: 100%;
+}
+
+.secondaryNav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-width: 150px;
+  justify-content: flex-end;
+  height: 100%;
+
+  @media (min-width: 992px) {
+    margin-right: 1em;
+  }
+}
+
+$iconSize: 1.5em;
+
+.iconButton {
+  position: relative;
+  width: $iconSize;
+  height: $iconSize;
+  margin-right: 0.5em;
+  background-color: inherit;
+  color: inherit;
+  padding: 0;
+  text-decoration: none;
+  border: 0;
+
+  svg {
+    border-radius: 100%;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    font-size: 1em;
+    background-color: $grey-1;
+    padding: 4px;
+    color: #7d7d7d;
+
+    &:hover {
+      @include nav-icon-hover-link;
+    }
+  }
+}
+
+.friendsIcon {
+  font-size: 1em;
+  background-color: $grey-1;
+  padding: 4px;
+  color: #7d7d7d;
+}
+
+.iconButton:last-child svg {
+  background-color: transparent;
+  color: white;
+  padding: 0;
+}
+
+.profileMenu {
+  margin-left: 0.5rem;
+  position: relative;
+}
+
+.nav {
+  text-align: center;
+  width: 100%;
+  justify-content: flex-end;
+  @media (min-width: 992px) {
+    margin-right: 1em;
+  }
+}
+
+.inline {
+  margin-right: 1em;
+}

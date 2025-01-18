@@ -1,0 +1,129 @@
+@use "../../../../../../style/variables" as *;
+
+.bookHeader {
+  border-radius: 8px;
+  background-color: $grey-1;
+  max-width: 540px;
+  margin-bottom: 1rem;
+}
+
+.bookCard {
+  display: flex;
+
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.imgContainer {
+  flex-shrink: 0;
+  margin: 0 auto;
+  width: 120px;
+  height: 180px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: $standard-box-shadow;
+  @media (max-width: 480px) {
+    width: 94px;
+    height: 140px;
+  }
+
+  &:hover {
+    @include hover-link;
+  }
+}
+
+.coverImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.details {
+  flex: 1;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.title {
+  font-family: $heading-font;
+  text-align: center;
+  color: $title-color;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.authors {
+  font-family: $paragraph-font;
+  text-align: center;
+  color: $secondary-color;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.ownerInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.ownerName {
+  font-family: $paragraph-font;
+  color: $secondary-color;
+  font-size: 0.9rem;
+}
+
+.dueDateList {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.9rem;
+  color: $secondary-color;
+}
+
+.dueDateTerm {
+  font-weight: bold;
+}
+
+.dueDateDesc {
+  margin: 0;
+}
+
+.progressContainer {
+  margin-top: 0.5rem;
+}
+
+.progressText {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: $secondary-color;
+  font-family: $paragraph-font;
+}
+
+@media (max-width: 480px) {
+  .bookCard {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .details {
+    gap: 0px;
+  }
+
+  .bookHeader {
+    padding: 1rem;
+  }
+
+  .ownerInfo,
+  .dueDateList {
+    justify-content: center;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+}

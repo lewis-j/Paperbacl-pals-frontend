@@ -1,0 +1,171 @@
+@use "../../style/variables" as *;
+
+$app-disc-start-xs: 45em;
+$app-disc-start-md: 41em;
+$app-disc-start-lg: 45em;
+
+.container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-image: linear-gradient(244deg, #000000, #444444);
+  box-shadow: inset 2px 1px 10px black;
+  display: flex;
+  flex-direction: column;
+}
+
+.imgWrapper {
+  position: relative;
+  width: 100%;
+  height: 82vh;
+  background: url("../../Assets/imgs/home_background.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+
+  @media (min-width: 768px) {
+    height: 70vh;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 5em;
+    background-color: #0606069e;
+    clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.logo {
+  width: 100%;
+  position: relative;
+  max-width: 38em;
+  height: 100%;
+  margin: 0 auto;
+  padding: 5px;
+  right: 0;
+  left: 0;
+
+  @media (min-width: 768px) {
+    position: absolute;
+  }
+
+  img {
+    width: 100%;
+    filter: drop-shadow(2px 4px 13px black);
+  }
+}
+
+.btnWrapper {
+  width: 100%;
+  display: flex;
+  margin: 1em auto;
+  justify-content: center;
+  z-index: 2;
+}
+
+.learnMoreLink {
+  text-decoration: none;
+  color: $grey-2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  &:hover {
+    color: white;
+  }
+}
+
+.toTopBtnContianer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 5em;
+  @media (min-width: 768px) {
+    justify-content: end;
+  }
+}
+
+.toTopBtn {
+  @media (min-width: 768px) {
+    margin-right: 75px;
+  }
+}
+
+.appDiscription {
+  padding: 2em;
+  margin-top: auto;
+  color: $grey-2;
+  text-align: center;
+
+  p {
+    width: 70%;
+    max-width: 50em;
+    margin: 1.5em auto;
+  }
+}
+
+.thumbnail {
+  padding: 0.25rem;
+  background-color: #6c6159;
+  border: 1px solid $grey-3;
+  border-radius: 0.25rem;
+  max-width: 100%;
+  height: auto;
+  justify-content: center;
+  box-shadow: $standard-box-shadow;
+}
+
+.filter::after {
+  background-color: rgba(0, 0, 0, 0.4);
+  content: " ";
+  display: block;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.tint {
+  position: relative;
+}
+
+.tint::before {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.37);
+  top: 0;
+  left: 0;
+  display: block;
+  content: "";
+}
+
+.tutorialSection {
+  margin-bottom: 3em;
+}
+
+.circle {
+  border: 1px solid $grey-5;
+  width: 2em;
+  height: 2em;
+
+  text-align: center;
+  line-height: 2;
+  filter: drop-shadow(1px 1px 1px black);
+}

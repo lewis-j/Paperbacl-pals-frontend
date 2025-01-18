@@ -1,0 +1,41 @@
+@use "../../../../../style/variables" as *;
+
+.wrapper {
+  position: relative;
+  width: 9em;
+  height: 14em;
+  margin: 0 auto;
+}
+
+.badge {
+  position: absolute;
+  left: 50%;
+  top: -10px; // Adjust this value to fine-tune the vertical position
+  transform: translateX(-50%);
+  background-color: $dark-accent;
+  border-radius: 12px;
+  padding: 2px 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.icon {
+  color: white;
+  font-size: 0.8em;
+  margin-right: 4px;
+}
+
+.count {
+  color: white;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.text {
+  color: white;
+  font-size: 0.8em;
+  margin-left: 4px;
+}

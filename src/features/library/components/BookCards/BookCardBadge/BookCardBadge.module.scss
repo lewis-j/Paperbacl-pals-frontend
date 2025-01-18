@@ -1,0 +1,16 @@
+@use "../../../../../style/variables" as *;
+.wrapper {
+  position: relative;
+  width: 11em;
+  height: 14em;
+  margin: 0 auto;
+}
+
+.badge {
+  position: absolute;
+  left: 50%;
+  top: -10px; // Adjust this value to fine-tune the vertical position
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 1;
+}

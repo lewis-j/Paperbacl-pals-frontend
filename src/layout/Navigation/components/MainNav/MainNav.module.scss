@@ -1,0 +1,10 @@
+@use "../../../../style/variables" as *;
+
+.content {
+  margin-top: $mobile-nav-height;
+  overflow: hidden;
+
+  @media (min-width: 916px) {
+    margin-top: $desktop-nav-height;
+  }
+}

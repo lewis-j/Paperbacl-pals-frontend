@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Nixie+One&family=Prompt:wght@200&display=swap");
+//spacing
+$mobile-nav-height: 7rem;
+$desktop-nav-height: 3rem;
+//colors
+$grey-1: #f4f4f4;
+$grey-2: #ececec;
+$grey-3: #e4e4e4;
+$grey-4: #dbdcdc;
+$grey-5: #d3d4d3;
+$grey-6: #cbcccb;
+$grey-7: #c3c4c3;
+$grey-8: #babcbb;
+$grey-9: #b2b4b3;
+$grey-10: #aaacaa;
+
+//accent colors
+$primary-color: #494949;
+$secondary-color: #717171;
+$dark-accent: #5a5e63;
+$heading-color: $grey-10;
+$dark-background: #343434;
+$navbar-gradient: linear-gradient(#2e2e2e, #ababab);
+$menu-background: #0000009f;
+
+//nav menus
+$menu-highlight: #ffffff;
+$menu-link-color: #717171;
+$menu-background-image: linear-gradient(#ffffff, #a5a5a5);
+@mixin menu-hover-button {
+  background-color: $grey-4;
+  transform: translateX(-5px);
+  box-shadow: 0 0 10px rgba(97, 97, 97, 0.5);
+  cursor: pointer;
+}
+@mixin nav-icon-hover-link {
+  transform: scale(1.1);
+  box-shadow: 1px 1px 14px $grey-5;
+}
+//status colors
+$add-color: #bb9f00;
+$decline-color: #d32f2f;
+$pending-color: #99742599;
+$accepted-color: #456891;
+$return-requested-color: #c17849;
+
+$box-border-colors: #d7d7d7;
+$shadow-color: $grey-6;
+$standard-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15);
+$box-shadow-sharp: #6e6e6e;
+//#adadad
+//gradient color
+$gradient-color-1: #2e2e2e;
+$gradient-color-2: $grey-1;
+
+//font color
+$dark-background-font-color: #f3f3f3;
+$title-color: #717171;
+
+//font families
+$heading-font: "Nixie One", cursive;
+$paragraph-font: "Prompt", sans-serif;
+
+//misc
+$standard-box-shadow: 1px 1px 5px $shadow-color;
+$sharp-box-shadow: 1px 1px 5px $box-shadow-sharp;
+
+//mixins
+
+@mixin title {
+  border-bottom: 1px solid $box-border-colors;
+  color: $title-color;
+  h1 {
+    padding: 1em 0;
+  }
+}
+@mixin active-link {
+  border-bottom: solid 1px $grey-1;
+  filter: drop-shadow(2px 3px 13px $grey-1);
+  //   transform: scale(0.98);
+}
+
+@mixin hover-link {
+  filter: drop-shadow(0px 0px 5px rgb(255, 255, 255));
+  cursor: pointer;
+}
+
+//scrollbar styles
+@mixin webkit-scrollbar {
+  background-color: inherit;
+  // color: white;
+}
+
+@mixin webkit-scrollbar-track {
+}
+
+@mixin webkit-scrollbar-track-piece {
+}
+
+@mixin webkit-scrollbar-button {
+}
+
+@mixin webkit-scrollbar-thumb {
+  background-color: #474747;
+  border-radius: 1rem;
+}
+
+//media queries
+$mobile-breakpoint: 917px;

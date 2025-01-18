@@ -1,0 +1,18 @@
+.alert {
+  label {
+    color: red;
+  }
+  input {
+    border-color: red;
+  }
+}
+
+.msg {
+  border: 1px solid #d10d0d;
+  border-radius: 4px;
+  font-weight: 600;
+  padding: 0.2em;
+  margin: 0.3em 0;
+  color: #6c0000;
+  background: #ffa5a575;
+}

@@ -1,0 +1,10 @@
+@use "../../style/variables" as *;
+
+.title {
+  @include title;
+  padding: 1em 0;
+}
+
+.bookwrapper {
+  margin: 4em 0;
+}

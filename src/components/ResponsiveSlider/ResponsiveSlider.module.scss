@@ -1,0 +1,14 @@
+@use "../../style/variables" as *;
+
+.arrow {
+  font-size: 1.5em;
+  color: black;
+
+  &::before {
+    content: "";
+  }
+  &:active,
+  :hover {
+    color: green;
+  }
+}

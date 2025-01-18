@@ -1,0 +1,12 @@
+@use "../../../../style/variables" as *;
+
+.noContent {
+  // background-color: rgb(192, 184, 184);
+  position: relative;
+  width: 100%;
+  background-color: $grey-5;
+  padding: 1em 0;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px rgb(0 0 0 / 11%);
+  min-height: 276px;
+}

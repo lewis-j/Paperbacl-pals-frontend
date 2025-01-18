@@ -1,0 +1,28 @@
+$avatar-size-lg: 5em;
+$avatar-size-xl: 10em;
+
+.lg {
+  width: $avatar-size-lg;
+  height: $avatar-size-lg;
+}
+
+.xl {
+  width: $avatar-size-xl;
+  height: $avatar-size-xl;
+}
+
+$avatar-size-md: 2.5em;
+.img {
+  border-radius: 100%;
+}
+
+.md {
+  width: $avatar-size-md;
+  height: $avatar-size-md;
+}
+$avatar-size-sm: 1.8em;
+
+.sm {
+  width: $avatar-size-sm;
+  height: $avatar-size-sm;
+}

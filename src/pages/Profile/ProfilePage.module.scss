@@ -1,0 +1,127 @@
+@use "../../style/variables" as *;
+
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+// User Header Styles
+.userHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid $grey-3;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  h1 {
+    font-family: $heading-font;
+    color: $primary-color;
+    margin: 0.5rem 0;
+  }
+}
+
+.bio {
+  color: $secondary-color;
+  font-family: $paragraph-font;
+  text-align: center;
+  max-width: 500px;
+}
+
+// Stats Section
+.statsSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background-color: $grey-1;
+  border-radius: 8px;
+  box-shadow: $standard-box-shadow;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  h3 {
+    color: $secondary-color;
+    margin: 0.5rem 0;
+    font-family: $heading-font;
+  }
+
+  span {
+    font-size: 1.5rem;
+    color: $primary-color;
+    font-weight: bold;
+  }
+}
+
+.statIcon {
+  font-size: 1.5rem;
+  color: $dark-accent;
+  margin-bottom: 0.5rem;
+}
+
+// Section Styles
+.bookshelves,
+.activity,
+.reviews {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: $standard-box-shadow;
+
+  h2 {
+    font-family: $heading-font;
+    color: $primary-color;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.sectionIcon {
+  color: $dark-accent;
+  font-size: 1.2rem;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .userHeader {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .statsSection {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .stat {
+    padding: 1rem;
+  }
+}

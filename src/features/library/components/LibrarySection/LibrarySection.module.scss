@@ -1,0 +1,22 @@
+@use "../../../../style/variables.scss" as *;
+
+.searchForm {
+  border: 1px solid $box-border-colors;
+  border-radius: 12px;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin-bottom: 1em;
+  }
+}
+
+.subtitle {
+  padding: 1em 0;
+  color: $title-color;
+}

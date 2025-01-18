@@ -1,0 +1,6 @@
+@use "../../pages" as *;
+
+.page-item.active .page-link {
+  background-color: $secondary-color;
+  border: 1px solid $dark-accent;
+}

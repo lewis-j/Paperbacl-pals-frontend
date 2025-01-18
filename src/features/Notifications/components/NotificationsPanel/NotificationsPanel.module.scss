@@ -1,0 +1,192 @@
+@use "../../../../style/variables" as *;
+@use "sass:color";
+
+$border: 1px solid $box-border-colors;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  background-color: $grey-1;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notifications {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+  overflow-y: auto;
+  flex-grow: 1;
+  gap: 0.75rem;
+}
+
+.readNotificationsDropdown {
+  border-top: $border;
+  margin-top: auto;
+  background-color: $grey-2;
+  transition: background-color 0.2s ease;
+}
+
+.dropdownToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: $secondary-color;
+  transition: all 0.2s ease;
+  font-weight: 500;
+
+  &:hover {
+    background-color: $grey-4;
+  }
+}
+
+.dropdownIcon {
+  margin-left: 0.5rem;
+}
+
+.readNotifications {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.bookInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.bookCover {
+  width: 100px;
+  height: auto;
+  margin-right: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bookDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.bookTitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.bookAuthor {
+  font-size: 1rem;
+  color: $secondary-color;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.acceptButton {
+  background-color: $accepted-color;
+  color: white;
+}
+
+.declineButton {
+  background-color: $decline-color;
+  color: white;
+}
+
+.modalContent {
+  padding: 1.5rem;
+  border-radius: 8px;
+
+  .bookInfo {
+    background-color: $grey-1;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.markAllReadButton {
+  display: inline-block;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  background-color: $accepted-color;
+  color: $dark-background-font-color;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: color.adjust($accepted-color, $lightness: -10%);
+  }
+}
+
+.headerContainer {
+  height: 4rem;
+  color: $grey-3;
+  background-image: $navbar-gradient;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.menuContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: $grey-3;
+  transition: color 0.2s ease;
+  padding: 4px 8px;
+  line-height: 1;
+
+  &:hover {
+    background-color: color.adjust($secondary-color, $lightness: 10%);
+  }
+}
+
+.menuDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: $grey-1;
+  border: 1px solid $box-border-colors;
+  border-radius: 4px;
+  box-shadow: $standard-box-shadow;
+  z-index: 10;
+  padding: 0.5rem 0;
+
+  button {
+    background: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    color: $secondary-color;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: $grey-3;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+@use "../../style/variables" as *;
+
+.container {
+  margin-bottom: 4rem;
+}
+
+.title {
+  @include title;
+}
+
+.subtitle {
+  padding: 1em 0;
+  color: $title-color;
+}
+
+.select {
+  width: 100%;
+  padding: 0.5em;
+  margin-bottom: 1em;
+  border: 1px solid $box-border-colors;
+  border-radius: 5px;
+  background-color: $grey-1;
+  color: $title-color;
+  font-size: 1rem;
+
+  &:focus {
+    outline: none;
+    border-color: $secondary-color;
+    box-shadow: 0 0 0 2px rgba($secondary-color, 0.2);
+  }
+}

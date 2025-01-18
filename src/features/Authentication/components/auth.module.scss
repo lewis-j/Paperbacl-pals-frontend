@@ -1,0 +1,41 @@
+@use "../../../style/variables" as *;
+
+.container {
+  background-color: #0a0a0abf;
+  color: $dark-background-font-color;
+  width: 100%;
+  margin-top: 10px;
+  max-width: 24rem;
+  min-height: 30rem;
+  margin: 10px auto;
+
+  input {
+    height: 2em;
+  }
+
+  a {
+    color: #bcd7ff;
+  }
+
+  .button {
+    border-radius: 50%;
+  }
+
+  @media (min-width: 768px) {
+    justify-content: end;
+    margin-top: 2em;
+    margin-left: auto;
+  }
+}
+
+// .wrapper {
+//   display: flex;
+//   justify-content: center;
+//   margin-top: 10px;
+//
+//   @media (min-width: 768px) {
+//     justify-content: end;
+//     margin-top: 2em;
+//   }
+
+// }

@@ -1,0 +1,34 @@
+.editBtns {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+
+  button {
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.closeBtn {
+  // ... existing styles ...
+}
+
+.acceptBtn {
+  // ... existing styles ...
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

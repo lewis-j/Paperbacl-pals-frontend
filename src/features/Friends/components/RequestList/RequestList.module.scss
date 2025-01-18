@@ -1,0 +1,28 @@
+.container {
+  padding: 1rem;
+}
+
+.title {
+  margin-bottom: 1rem;
+}
+
+.user_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  button {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #45a049;
+    }
+  }
+}

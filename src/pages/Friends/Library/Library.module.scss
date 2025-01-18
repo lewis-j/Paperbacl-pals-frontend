@@ -1,0 +1,45 @@
+@use "../../../style/variables" as *;
+
+.container {
+}
+
+.badgeWrapper {
+  position: absolute;
+  top: -0.5em;
+  right: 1em;
+}
+
+.title {
+  border-bottom: 1px solid $box-border-colors;
+  color: $title-color;
+  h1 {
+    padding: 1em 0;
+  }
+}
+
+.card {
+  margin-bottom: 0.5em;
+}
+
+.subtitle {
+  padding: 1em 0;
+  color: $title-color;
+}
+
+.section {
+  position: relative;
+  padding: 1em;
+}
+
+//card badge icon styles
+.requestSentIcon {
+  background-color: transparent;
+  // color: #987311;
+  color: #310fc9;
+  border-radius: 100%;
+  box-shadow: 2px 2px 15px black;
+  padding: 0;
+  border: 1px solid $title-color;
+  font-size: 1.5em;
+  // font-size: 1.5em;
+}

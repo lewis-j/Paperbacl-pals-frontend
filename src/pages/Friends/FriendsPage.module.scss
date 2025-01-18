@@ -1,0 +1,119 @@
+@use "../../style/variables" as *;
+.container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.contactList {
+  position: absolute;
+  width: 30%;
+  height: 100%;
+  background-color: $grey-3;
+}
+
+.mainView {
+  position: absolute;
+  width: 70%;
+  right: 0;
+  height: 100vh;
+
+  background-color: $grey-1;
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0, 1.04, 0.32, 0.96);
+  box-shadow: -1px -1px 4px $grey-4;
+  overflow-y: scroll;
+}
+
+.innerView {
+  position: relative;
+  display: flex;
+  height: 100%;
+  // padding: 1em;
+  // overflow-y: scroll;
+
+  &::-webkit-scrollbar-track {
+    border: 1px solid $grey-7;
+    padding: 2px 0;
+    background-color: $grey-4;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #737272;
+    border: 1px solid #000;
+  }
+}
+
+.viewOpen {
+  width: 100%;
+}
+
+.tabs {
+  top: 0;
+  display: flex;
+  gap: 0.8em;
+  padding: 0.75em 1.5em;
+  background-image: linear-gradient(
+    180deg,
+    $heading-color,
+    rgba($heading-color, 0.95)
+  );
+  height: 3.5em;
+  box-shadow: $sharp-box-shadow;
+  backdrop-filter: blur(8px);
+
+  button {
+    position: relative;
+    padding: 0.5em 1.2em;
+    border: none;
+    border-radius: 4px;
+    background: none;
+    cursor: pointer;
+    font-family: $heading-font;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: $grey-4;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      color: white;
+      background-color: rgba($grey-2, 0.15);
+    }
+
+    &.activeTab {
+      color: white;
+      background-color: rgba($grey-2, 0.2);
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -0.5em;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: $grey-2;
+        transform: scaleX(1);
+        transition: transform 0.2s ease-in-out;
+        box-shadow: 0 0 4px $grey-2;
+      }
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba($grey-1, 0.3);
+    }
+  }
+
+  &::-webkit-scrollbar {
+    @include webkit-scrollbar;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @include webkit-scrollbar-thumb;
+  }
+}

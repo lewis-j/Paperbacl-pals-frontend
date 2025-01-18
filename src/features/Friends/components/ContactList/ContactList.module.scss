@@ -1,0 +1,44 @@
+@use "../../../../style/variables" as *;
+$borderStyle: 1px solid $grey-3;
+
+.title {
+  width: 100%;
+  padding: 0.5em 0.5em;
+  position: relative;
+  &::after {
+    position: absolute;
+    content: " ";
+
+    height: 1px;
+    bottom: -4px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    width: 90%;
+    background: $grey-4;
+    box-shadow: 1px 0.5px 2px $grey-3;
+  }
+}
+.container {
+  padding-top: 1em;
+  border-top: $borderStyle;
+  border-right: $borderStyle;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px $grey-3;
+  background-color: $grey-3;
+}
+
+.user_item {
+  cursor: pointer;
+  transition: 0.5s background-color, 3s transform;
+  position: relative;
+}
+
+.isActive {
+  background-color: $menu-highlight;
+  border-radius: 12px;
+  box-shadow: 1px 1px 3px $grey-10;
+  color: $grey-10;
+  transform: translateX(1px);
+  // z-index: 10;
+}

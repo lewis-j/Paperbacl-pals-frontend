@@ -1,0 +1,71 @@
+//https://blog.hubspot.com/website/css-loading-animation#:~:text=Loading%20animations%20are%20notifications%20that,data%20or%20content%20to%20load.
+@use "../../style/variables" as *;
+$timing-property: ease-in;
+
+.container {
+  display: flex;
+  position: relative;
+  width: 10em;
+  height: 10em;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.spinner {
+  border: 1px solid transparent;
+  position: absolute;
+  width: 10em;
+  height: 10em;
+  border-radius: 100%;
+  animation-name: spin;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: $timing-property;
+}
+
+.dark {
+  border-color: transparent black transparent black;
+}
+
+.light {
+  border-color: transparent $grey-1 transparent $grey-1;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+
+.img {
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 10em;
+}
+
+.logo {
+  animation-name: fadeIn;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: $timing-property;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

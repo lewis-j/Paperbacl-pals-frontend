@@ -1,0 +1,110 @@
+@use "../../../../style/variables" as *;
+.wrapper {
+  height: 20em;
+  max-width: 18em;
+  position: relative;
+  margin: 0.5em auto;
+  border: solid 1px $box-border-colors;
+  border-radius: 0.15em;
+  box-shadow: $standard-box-shadow;
+  background-color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $standard-box-shadow-hover;
+  }
+
+  @media (max-width: 768px) {
+    height: 18em;
+    max-width: 16em;
+  }
+
+  @media (max-width: 480px) {
+    height: 16em;
+    max-width: 14em;
+  }
+}
+
+.container {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title {
+  text-align: left;
+  margin: 5% 15%;
+  font-family: $heading-font;
+
+  h6 {
+    font-size: 0.9em;
+  }
+
+  small {
+    font-size: 0.8em;
+  }
+}
+
+.description {
+  margin-right: 5%;
+}
+
+.img {
+  height: 50%;
+  margin-top: 2%;
+  box-shadow: 2px 2px 5px $shadow-color;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+.button {
+  margin-bottom: 2%;
+  position: absolute;
+  bottom: 5px;
+}
+
+.isLoading {
+  animation: spin 1.5s infinite linear;
+}
+
+.wrapper.isLoadingState {
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.inLibrary {
+  color: $accepted-color;
+  border-color: $accepted-color;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.inLibraryWrapper {
+  cursor: default;
+  opacity: 0.8;
+
+  &:hover {
+    transform: none;
+    box-shadow: $standard-box-shadow;
+  }
+}
+
+.badgeWrapper {
+  position: absolute;
+  bottom: 1em;
+}

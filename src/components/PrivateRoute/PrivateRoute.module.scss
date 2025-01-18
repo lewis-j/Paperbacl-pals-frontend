@@ -1,0 +1,13 @@
+.loading {
+  height: 100vh;
+  display: flex;
+  background-size: cover;
+  background-image: url("../../Assets/imgs/home_background.jpg");
+  &:before {
+    content: "";
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: #000000cc;
+  }
+}
