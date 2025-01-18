@@ -10,3 +10,4 @@ export { BookModalForm } from "./ModalForms";
 export { BookStatusTracker } from "./BookStatusTracker";
 export { BookContainer } from "./BookContainer";
 export { RequestCard } from "./RequestCard";
+export { LibrarySection } from "./LibrarySection";

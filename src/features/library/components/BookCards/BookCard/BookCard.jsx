@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
 import styles from "./BookCard.module.scss";
 import { Button } from "../../../../../components";
 
@@ -11,6 +10,7 @@ const BookCard = ({
   isActive = false,
   setActive,
   badge = null,
+  onClick,
 }) => {
   const { coverImg, title } = book;
 
@@ -34,12 +34,21 @@ const BookCard = ({
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.book} ${isActive ? styles.isActive : ""}`}>
+      <div
+        className={`${styles.book} ${isActive ? styles.isActive : ""}`}
+        onClick={onClick}
+      >
         {badge && !isActive && (
           <div className={styles.badgeWrapper}>{badge}</div>
         )}
         <img className={styles.img} src={coverImg} alt={title} />
-        <div className={cardFilter.className} onClick={cardFilter.menuBtnClick}>
+        <div
+          className={cardFilter.className}
+          onClick={(e) => {
+            e.stopPropagation();
+            cardFilter.menuBtnClick();
+          }}
+        >
           <FontAwesomeIcon icon={cardFilter.icon} size={cardFilter.size} />
         </div>
         {isActive && menuItems.length !== 0 && (
@@ -47,7 +56,10 @@ const BookCard = ({
             {menuItems.map(({ text, clickHandler }, i) => (
               <Button
                 key={`menu-list${i}`}
-                onClick={() => clickHandler("test")}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  clickHandler();
+                }}
                 variant="menu-white-outline"
               >
                 {text}

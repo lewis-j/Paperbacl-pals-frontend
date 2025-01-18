@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../../../Assets/imgs/pppals_white.png";
@@ -65,8 +65,6 @@ const MobileNavigation = ({ openProfileMenu }) => {
               className={styles.logo}
               alt="Logo"
               onClick={() => navigate("/app")}
-              loading="eager"
-              fetchPriority="high"
               width="150"
               height="40"
             />

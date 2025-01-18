@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import * as asyncStatus from "../../../../../data/asyncStatus";
-import { Button, Loading } from "../../../../../components";
+import { Button, Loading, Rating } from "../../../../../components";
 import styles from "./BookDetailsView.module.scss";
 
 const BookDetailsView = ({ userBook, onClose, isSubmitting }) => {
   const userBookAsyncStatus = useSelector((state) => state.userBooks.status);
-
+  console.log(userBook);
   if (!userBook) return null;
   if (userBookAsyncStatus === asyncStatus.LOADING) return <Loading />;
 
@@ -13,13 +13,19 @@ const BookDetailsView = ({ userBook, onClose, isSubmitting }) => {
     <div className={styles.bookDetailsContainer}>
       <div className={styles.bookHeader}>
         <div className={styles.bookCard}>
-          <div className={styles.imgContainer}>
-            <img
-              src={userBook.book.coverImg}
-              alt={userBook.book.title}
-              className={styles.coverImg}
-              referrerPolicy="no-referrer"
-            />
+          <div className={styles.ratingContainer}>
+            <div className={styles.imgContainer}>
+              <img
+                src={userBook.book.coverImg}
+                alt={userBook.book.title}
+                className={styles.coverImg}
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <Rating value={userBook.book.averageRating} />
+            <p className={styles.ratingCount}>
+              ({userBook.book.numberOfRatings})
+            </p>
           </div>
           <div className={styles.details}>
             <h3 className={styles.title}>{userBook.book.title}</h3>

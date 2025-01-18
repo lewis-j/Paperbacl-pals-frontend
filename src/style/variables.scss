@@ -19,7 +19,8 @@ $primary-color: #494949;
 $secondary-color: #717171;
 $dark-accent: #5a5e63;
 $heading-color: $grey-10;
-$dark-background: #343434;
+$dark-background: #585858;
+$hover-box-shadow: 0 0 10px rgba(97, 97, 97, 0.5);
 $navbar-gradient: linear-gradient(#2e2e2e, #ababab);
 $menu-background: #0000009f;
 
@@ -36,6 +37,12 @@ $menu-background-image: linear-gradient(#ffffff, #a5a5a5);
 @mixin nav-icon-hover-link {
   transform: scale(1.1);
   box-shadow: 1px 1px 14px $grey-5;
+}
+
+@mixin hover-book-card {
+  box-shadow: $hover-box-shadow;
+  cursor: pointer;
+  transform: scale(1.05);
 }
 //status colors
 $add-color: #bb9f00;

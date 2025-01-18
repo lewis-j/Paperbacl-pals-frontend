@@ -155,7 +155,7 @@ const Settings = () => {
     setErrors((prev) => ({ ...prev, name: validateUsername(value) }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
     let updates = {};
     let hasErrors = false;
 
@@ -362,15 +362,15 @@ const Settings = () => {
           </div>
           <EditInput
             isEdit={!settingsState.editMode.bio}
-            name={settingsState.values.bio || "Add a bio"}
             value={settingsState.values.bio}
+            placeholder="Add a bio"
             handleClick={() => handleEditClick("bio")}
             set={(value) => {
               setSettingsState((prev) => ({
                 ...prev,
                 values: {
                   ...prev.values,
-                  bio: value === "Add a bio" ? "" : value,
+                  bio: value,
                 },
               }));
             }}
@@ -388,7 +388,7 @@ const Settings = () => {
           </div>
           <EditInput
             isEdit={!settingsState.editMode.location}
-            name={settingsState.values.location || "Add location"}
+            placeholder="Add location"
             value={settingsState.values.location}
             handleClick={() => handleEditClick("location")}
             set={(value) => {

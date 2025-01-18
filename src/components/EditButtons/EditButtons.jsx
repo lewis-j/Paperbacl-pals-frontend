@@ -26,7 +26,7 @@ const EditButtons = ({ onSubmit, onClose, isLoading }) => {
         }}
         disabled={isLoading}
       >
-        Accept
+        Save
       </Button>
     </div>
   );

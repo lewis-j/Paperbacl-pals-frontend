@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from "react";
 
 const EditInput = ({
   isEdit,
-  name,
   value,
   handleClick,
   set,
@@ -11,6 +10,7 @@ const EditInput = ({
   dropdown = false,
   suggestions = [],
   isLoading = false,
+  placeholder = "",
 }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const inputRef = useRef(null);
@@ -25,13 +25,13 @@ const EditInput = ({
     <div className={styles.editInput}>
       {isEdit ? (
         <div
-          className={styles.name}
+          className={`${styles.name} ${value ? "" : styles.placeholder}`}
           onClick={() => {
             handleClick();
             set(value);
           }}
         >
-          {value}
+          {value || placeholder}
         </div>
       ) : (
         <div className={styles.inputContainer}>
@@ -41,6 +41,7 @@ const EditInput = ({
                 ref={inputRef}
                 type="text"
                 value={value}
+                placeholder={placeholder}
                 onChange={(e) => {
                   set(e.target.value);
                   setShowDropdown(true);
@@ -73,6 +74,7 @@ const EditInput = ({
               ref={inputRef}
               value={value}
               onChange={(e) => set(e.target.value)}
+              placeholder={placeholder}
             />
           ) : (
             <input

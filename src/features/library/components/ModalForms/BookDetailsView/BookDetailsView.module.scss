@@ -46,6 +46,12 @@
   }
 }
 
+.ratingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .coverImg {
   width: 100%;
   height: 100%;

@@ -1,0 +1,17 @@
+@use "../../style/variables.scss" as *;
+
+.settingsContainer {
+  margin-bottom: 4em;
+}
+.heading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    margin: 2em auto;
+    font-family: $heading-font;
+    font-size: 2em;
+    color: $title-color;
+  }
+}

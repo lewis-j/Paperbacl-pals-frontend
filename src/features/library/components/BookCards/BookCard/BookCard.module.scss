@@ -6,6 +6,10 @@
   margin: 0 auto;
   width: 9em;
   height: 14em;
+  cursor: pointer;
+  &:hover {
+    @include hover-book-card;
+  }
 }
 .badge {
   position: absolute;

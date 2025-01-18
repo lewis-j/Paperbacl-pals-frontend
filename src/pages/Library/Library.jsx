@@ -1,7 +1,6 @@
 import {
   BookCard,
   UserBookCardSm,
-  BookContainer,
   BookTransferTracker,
   RequestBadge,
   BookCardBadge,
@@ -12,13 +11,16 @@ import { useSelector } from "react-redux";
 import { Badge, Button } from "../../components";
 import requestStatus from "../../data/requestStatus";
 import { Col, Container } from "../../lib/BootStrap";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useLibraryModalManager } from "../../features/library/hooks/useLibraryModalManager";
 import { useSearchModal } from "../../features/search/hooks/useSearchModal";
+import { LibrarySection } from "../../features/library/components";
 
 const Library = () => {
   const [activeCardId, setActiveCardId] = useState("");
-  const { menuItems, runAction, renderModal } =
+  const [filteredLibraryBooks, setFilteredLibraryBooks] = useState(null);
+  const [filteredCheckedOutBooks, setFilteredCheckedOutBooks] = useState(null);
+  const { menuItems, runAction, renderModal, modalActions } =
     useLibraryModalManager(setActiveCardId);
   const { renderSearchModal, openSearchModal } = useSearchModal();
   const isBorrower = false;
@@ -36,7 +38,7 @@ const Library = () => {
     </Col>
   );
 
-  const mapCheckedOutBooks = (userBook, i) => {
+  const mapCheckedOutBooks = (userBook) => {
     const { _id, book, sender, dueDate, currentPage } = userBook;
     const { request } = userBook;
     const bookCardBadge = { badge: null, clickHandler: () => {} };
@@ -70,7 +72,7 @@ const Library = () => {
     );
   };
 
-  const renderCheckedInBookCard = (userBook, i) => {
+  const renderCheckedInBookCard = (userBook) => {
     const { _id, book, status } = userBook;
     const { coverImg, title } = book;
     const cardInfo = { coverImg, title, status };
@@ -103,11 +105,44 @@ const Library = () => {
             menuItems={checkedInMenuItems(userBookSnapshot)}
             isActive={activeCardId === _id}
             setActive={setActiveCardId}
+            onClick={() => modalActions.viewUserBookDetails(userBookSnapshot)}
           />
         </RequestBadge>
       </Col>
     );
   };
+
+  const handleBookSearch = useCallback((input, books, setFilteredBooks) => {
+    if (!input.trim()) {
+      setFilteredBooks(null);
+      return;
+    }
+
+    const filteredBooks = books.filter((userbook) => {
+      const searchTerm = input.toLowerCase();
+      return (
+        userbook.book.title.toLowerCase().includes(searchTerm) ||
+        userbook.book.authors.some((author) =>
+          author.toLowerCase().includes(searchTerm)
+        )
+      );
+    });
+    setFilteredBooks(filteredBooks);
+  }, []);
+
+  const handleLibrarySearch = useCallback(
+    (input) => {
+      handleBookSearch(input, booksInLibrary, setFilteredLibraryBooks);
+    },
+    [booksInLibrary, handleBookSearch]
+  );
+
+  const handleCheckedOutSearch = useCallback(
+    (input) => {
+      handleBookSearch(input, booksToFriends, setFilteredCheckedOutBooks);
+    },
+    [booksToFriends, handleBookSearch]
+  );
 
   return (
     <>
@@ -122,22 +157,21 @@ const Library = () => {
             Add Book
           </Button>
         </div>
-        <div>
-          <h4 className={styles.subtitle}>Checked in Books</h4>
-        </div>
 
-        <BookContainer
+        <LibrarySection
+          title="Checked in Books"
+          books={booksInLibrary}
+          filteredBooks={filteredLibraryBooks}
+          renderBook={renderCheckedInBookCard}
+          searchPlaceholder="Search Checked In Books"
+          onSearch={handleLibrarySearch}
           noContent={{
             text: "No Books in Library",
             description: "Add some books to get started!",
             buttonText: "Add Book",
-            onClick: () => {
-              openSearchModal();
-            },
+            onClick: () => openSearchModal(),
           }}
-        >
-          {booksInLibrary.map(renderCheckedInBookCard)}
-        </BookContainer>
+        />
 
         <BookTransferTracker
           booksInTransition={ownedbooksInTransition}
@@ -145,18 +179,18 @@ const Library = () => {
           runAction={runAction(isBorrower)}
         />
 
-        <div>
-          <h4 className={styles.subtitle}>Checked Out Books</h4>
-        </div>
-
-        <BookContainer
+        <LibrarySection
+          title="Checked Out Books"
+          books={booksToFriends}
+          filteredBooks={filteredCheckedOutBooks}
+          renderBook={mapCheckedOutBooks}
+          searchPlaceholder="Search Checked Out Books"
+          onSearch={handleCheckedOutSearch}
           noContent={{
             text: "No Checked Out Books",
             description: "Share books with friends to see them here",
           }}
-        >
-          {booksToFriends.map(mapCheckedOutBooks)}
-        </BookContainer>
+        />
       </Container>
     </>
   );

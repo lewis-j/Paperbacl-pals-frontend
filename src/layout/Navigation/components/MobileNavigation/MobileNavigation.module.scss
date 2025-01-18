@@ -96,6 +96,11 @@
     height: 40px;
     width: 4em;
     gap: 0.5rem;
+
+    &:hover {
+      color: $grey-1;
+      transform: translateY(-1px);
+    }
   }
 }
 
