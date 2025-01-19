@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as userBookApi from "./userBookCalls";
 import * as status from "../../data/asyncStatus";
-import { setExtraReducer } from "../../utilities/reduxUtil";
+import { rateBook } from "../Ratings/RatingsSlice";
 
 export const addBook = createAsyncThunk(
   "userBooks/addBooks",
@@ -185,6 +185,30 @@ const updateRequestPictureRequiredFulfilled = (state, action) => {
   }
 };
 
+const updateBookRatingFulfilled = (state, action) => {
+  const { bookId, averageRating, numberOfRatings } = action.payload;
+
+  // Update in owned books
+  const ownedBookIndex = state.books.owned.findIndex(
+    (item) => item.book._id === bookId || item.book.google_id === bookId
+  );
+  if (ownedBookIndex !== -1) {
+    state.books.owned[ownedBookIndex].book.averageRating = averageRating;
+    state.books.owned[ownedBookIndex].book.numberOfRatings = numberOfRatings;
+    return;
+  }
+
+  // Update in borrowed books
+  const borrowedBookIndex = state.books.borrowed.findIndex(
+    (item) => item.book._id === bookId || item.book.google_id === bookId
+  );
+  if (borrowedBookIndex !== -1) {
+    state.books.borrowed[borrowedBookIndex].book.averageRating = averageRating;
+    state.books.borrowed[borrowedBookIndex].book.numberOfRatings =
+      numberOfRatings;
+  }
+};
+
 export const userBooksSlice = createSlice({
   name: "userBooks",
 
@@ -207,36 +231,67 @@ export const userBooksSlice = createSlice({
       state.currentRead = action.payload.currentRead;
     },
   },
-  extraReducers: {
-    ...setExtraReducer(fetchReturnedBooks, fetchReturnedBooksFulfilled),
-    ...setExtraReducer(addBook, addBookFullfilled),
-    ...setExtraReducer(deleteUserBook, deleteUserBookFulfilled),
-    ...setExtraReducer(createBookRequest, createBookRequestFullfilled),
-    ...setExtraReducer(updateCurrentRead, updateCurrentReadFulfilled),
-    ...setExtraReducer(updateCurrentPage, updateCurrentPageFulfilled),
-    ...setExtraReducer(
-      updateLendRequestStatus,
-      updateLendRequestStatusFulfilled
-    ),
-    ...setExtraReducer(
-      updateBorrowRequestStatus,
-      updateBorrowRequestStatusFulfilled
-    ),
-    ...setExtraReducer(
-      initiateBookReturnRequest,
-      updateLendRequestStatusFulfilled
-    ),
-    ...setExtraReducer(
-      cancelBookReturnRequest,
-      updateLendRequestStatusFulfilled
-    ),
-    ...setExtraReducer(cancelBorrowRequest, cancelBorrowRequestFulfilled),
-    ...setExtraReducer(declineLendingRequest, declineLendingRequestFulfilled),
-    ...setExtraReducer(
-      updateRequestPictureRequired,
-      updateRequestPictureRequiredFulfilled
-    ),
-    ...setExtraReducer(getAllBookRequests, getAllBookRequestsFulfilled),
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchReturnedBooks.fulfilled, fetchReturnedBooksFulfilled)
+      .addCase(addBook.fulfilled, addBookFullfilled)
+      .addCase(deleteUserBook.fulfilled, deleteUserBookFulfilled)
+      .addCase(createBookRequest.fulfilled, createBookRequestFullfilled)
+      .addCase(updateCurrentRead.fulfilled, updateCurrentReadFulfilled)
+      .addCase(updateCurrentPage.fulfilled, updateCurrentPageFulfilled)
+      .addCase(
+        updateLendRequestStatus.fulfilled,
+        updateLendRequestStatusFulfilled
+      )
+      .addCase(
+        updateBorrowRequestStatus.fulfilled,
+        updateBorrowRequestStatusFulfilled
+      )
+      .addCase(
+        initiateBookReturnRequest.fulfilled,
+        updateLendRequestStatusFulfilled
+      )
+      .addCase(
+        cancelBookReturnRequest.fulfilled,
+        updateLendRequestStatusFulfilled
+      )
+      .addCase(cancelBorrowRequest.fulfilled, cancelBorrowRequestFulfilled)
+      .addCase(declineLendingRequest.fulfilled, declineLendingRequestFulfilled)
+      .addCase(
+        updateRequestPictureRequired.fulfilled,
+        updateRequestPictureRequiredFulfilled
+      )
+      .addCase(getAllBookRequests.fulfilled, getAllBookRequestsFulfilled)
+      .addCase(rateBook.fulfilled, updateBookRatingFulfilled)
+      // Add matchers for common status handling
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("userBooks/") &&
+          action.type.endsWith("/pending"),
+        (state) => {
+          state.status = status.LOADING;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("userBooks/") &&
+          action.type.endsWith("/fulfilled"),
+        (state) => {
+          state.status = status.SUCCEEDED;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("userBooks/") &&
+          action.type.endsWith("/rejected"),
+        (state, action) => {
+          state.status = status.FAILED;
+          state.error = action.error.message;
+          console.error(action.error.message);
+        }
+      );
   },
 });
 export const createBookFromRequestFinder = (state) => (request_id) => {

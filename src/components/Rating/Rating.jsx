@@ -1,6 +1,13 @@
 import styles from "./Rating.module.scss";
 import React from "react";
-const Rating = ({ value = 3 }) => {
+
+const Rating = ({ value = 3, onChange, interactive = false }) => {
+  const handleChange = (e) => {
+    if (interactive && onChange) {
+      onChange(Number(e.target.value));
+    }
+  };
+
   return (
     <div className={styles.rating}>
       {Array.from({ length: 5 }, (_, index) => (
@@ -11,9 +18,14 @@ const Rating = ({ value = 3 }) => {
             id={`star${index + 1}`}
             type="radio"
             defaultChecked={value === index + 1}
-            onChange={(e) => console.log("star clicked", e.target.value)}
+            onChange={handleChange}
+            disabled={!interactive}
           />
-          <label title="text" htmlFor={`star${index + 1}`}></label>
+          <label
+            title={`${index + 1} stars`}
+            htmlFor={`star${index + 1}`}
+            style={{ cursor: interactive ? "pointer" : "default" }}
+          />
         </React.Fragment>
       )).reverse()}
     </div>

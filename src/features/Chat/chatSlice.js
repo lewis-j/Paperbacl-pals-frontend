@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import chatApi from "./chatApi";
-import { setExtraReducer } from "../../utilities/reduxUtil";
 
 const initialState = {
   messages: [],
@@ -18,32 +17,15 @@ export const getMessages = createAsyncThunk(
   chatApi.getMessages
 );
 
-const getMessagesFullfilled = (state, { payload }) => {
-  state.messages = payload;
-};
-
 export const fetchEnterChatRoom = createAsyncThunk(
   "chat/enterChatRoom",
   chatApi.enterChatRoom
 );
 
-const enterChatRoomFullfilled = (state, { payload }) => {
-  state.currentRoomId = payload.roomId;
-};
-
 export const fetchChatRooms = createAsyncThunk(
   "chat/getChatRooms",
   chatApi.getChatRooms
 );
-
-const getChatRoomsFullfilled = (state, { payload }) => {
-  state.chatRooms = payload;
-  payload.forEach((room) => {
-    room.participants.forEach((participant) => {
-      state.participants[participant._id] = participant;
-    });
-  });
-};
 
 const chatSlice = createSlice({
   name: "chat",
@@ -72,10 +54,48 @@ const chatSlice = createSlice({
       state.error = action.payload;
     },
   },
-  extraReducers: {
-    ...setExtraReducer(fetchEnterChatRoom, enterChatRoomFullfilled),
-    ...setExtraReducer(fetchChatRooms, getChatRoomsFullfilled),
-    ...setExtraReducer(getMessages, getMessagesFullfilled),
+  extraReducers: (builder) => {
+    builder
+      .addCase(getMessages.fulfilled, (state, { payload }) => {
+        state.messages = payload;
+      })
+      .addCase(fetchEnterChatRoom.fulfilled, (state, { payload }) => {
+        state.currentRoomId = payload.roomId;
+      })
+      .addCase(fetchChatRooms.fulfilled, (state, { payload }) => {
+        state.chatRooms = payload;
+        payload.forEach((room) => {
+          room.participants.forEach((participant) => {
+            state.participants[participant._id] = participant;
+          });
+        });
+      })
+      // Add matchers for common status handling
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("chat/") && action.type.endsWith("/pending"),
+        (state) => {
+          state.loading = true;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("chat/") && action.type.endsWith("/fulfilled"),
+        (state) => {
+          state.loading = false;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("chat/") && action.type.endsWith("/rejected"),
+        (state, action) => {
+          state.loading = false;
+          state.error = action.error.message;
+          console.error(action.error.message);
+        }
+      );
   },
 });
 
@@ -93,4 +113,5 @@ export const {
   setLoading,
   setError,
 } = chatSlice.actions;
+
 export default chatSlice.reducer;

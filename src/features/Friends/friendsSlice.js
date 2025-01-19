@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as status from "../../data/asyncStatus";
 import * as friendsThunks from "./friendsThunks";
-import { setExtraReducer } from "../../utilities/reduxUtil";
 
 const sendFriendRequest = createAsyncThunk(
   "friends/sendFriendRequest",
@@ -61,7 +60,7 @@ const initialState = {
   error: null,
 };
 
-const friendsSlice = createSlice({
+export const friendsSlice = createSlice({
   name: "friends",
   initialState,
   reducers: {
@@ -114,11 +113,41 @@ const friendsSlice = createSlice({
       };
     },
   },
-  extraReducers: {
-    ...setExtraReducer(sendFriendRequest, sendFriendRequestFullfilled),
-    ...setExtraReducer(acceptFriendRequest, acceptFriendRequestFullfilled),
-    ...setExtraReducer(getFriendsUserData, getFriendsUserDataFullfilled),
-    ...setExtraReducer(removeFriend, removeFriendFullfilled),
+  extraReducers: (builder) => {
+    builder
+      .addCase(sendFriendRequest.fulfilled, sendFriendRequestFullfilled)
+      .addCase(acceptFriendRequest.fulfilled, acceptFriendRequestFullfilled)
+      .addCase(getFriendsUserData.fulfilled, getFriendsUserDataFullfilled)
+      .addCase(removeFriend.fulfilled, removeFriendFullfilled)
+      // Add matchers for common status handling
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("friends/") &&
+          action.type.endsWith("/pending"),
+        (state) => {
+          state.status = status.LOADING;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("friends/") &&
+          action.type.endsWith("/fulfilled"),
+        (state) => {
+          state.status = status.SUCCEEDED;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("friends/") &&
+          action.type.endsWith("/rejected"),
+        (state, action) => {
+          state.status = status.FAILED;
+          state.error = action.error.message;
+          console.error(action.error.message);
+        }
+      );
   },
 });
 

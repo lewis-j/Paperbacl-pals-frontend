@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as status from "../../data/asyncStatus";
-import { setExtraReducer } from "../../utilities/reduxUtil";
 import * as notificationsApi from "./notificationsApi";
 import { FRIEND_REQUEST_STATUS } from "../../data/friendRequestStatus";
 
@@ -9,36 +8,15 @@ const fetchNotifications = createAsyncThunk(
   notificationsApi.fetchNotifications
 );
 
-const fetchNotificationsSuccess = (state, action) => {
-  state.list = action.payload.notifications;
-};
-
 const markAsRead = createAsyncThunk(
   "notification/markAsRead",
   notificationsApi.markAsRead
 );
 
-const markAsReadSuccess = (state, action) => {
-  const { notification } = action.payload;
-
-  const notificationList = state.list;
-  const idx = notificationList.findIndex(
-    (_notification) => _notification._id === notification._id
-  );
-
-  state.list[idx] = notification;
-};
 const markAllAsRead = createAsyncThunk(
   "notification/markAllAsRead",
   notificationsApi.markAllAsRead
 );
-
-const markAllAsReadSuccess = (state, action) => {
-  state.list = state.list.map((notification) => ({
-    ...notification,
-    isRead: true,
-  }));
-};
 
 export const notificationsSlice = createSlice({
   name: "notifications",
@@ -59,10 +37,52 @@ export const notificationsSlice = createSlice({
       state.list.unshift(action.payload.notification);
     },
   },
-  extraReducers: {
-    ...setExtraReducer(fetchNotifications, fetchNotificationsSuccess),
-    ...setExtraReducer(markAsRead, markAsReadSuccess),
-    ...setExtraReducer(markAllAsRead, markAllAsReadSuccess),
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchNotifications.fulfilled, (state, action) => {
+        state.list = action.payload.notifications;
+      })
+      .addCase(markAsRead.fulfilled, (state, action) => {
+        const { notification } = action.payload;
+        const idx = state.list.findIndex(
+          (_notification) => _notification._id === notification._id
+        );
+        state.list[idx] = notification;
+      })
+      .addCase(markAllAsRead.fulfilled, (state) => {
+        state.list = state.list.map((notification) => ({
+          ...notification,
+          isRead: true,
+        }));
+      })
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("notification/") &&
+          action.type.endsWith("/pending"),
+        (state) => {
+          state.status = status.LOADING;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("notification/") &&
+          action.type.endsWith("/fulfilled"),
+        (state) => {
+          state.status = status.SUCCEEDED;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("notification/") &&
+          action.type.endsWith("/rejected"),
+        (state, action) => {
+          state.status = status.FAILED;
+          state.error = action.error.message;
+          console.error(action.error.message);
+        }
+      );
   },
 });
 

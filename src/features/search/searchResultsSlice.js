@@ -2,46 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as searchApi from "./searchApi";
 import * as status from "../../data/asyncStatus";
 
-const rejectionReducer = (state, action) => {
-  state.status = status.FAILED;
-  state.error = action.error.message;
-  console.error(action.error.message);
-};
-
-const pendingReducer = (state) => {
-  state.status = status.LOADING;
-};
-
-const searchBooksFulfilledReducer = (state, { payload }) => {
-  state.status = status.SUCCEEDED;
-  state.bookResults.results = payload?.results || [];
-  state.bookResults.total = payload.total;
-};
-
-const getMoreBooksFulfilledReducer = (state, { payload }) => {
-  state.status = status.SUCCEEDED;
-  state.bookResults.results = [
-    ...state.bookResults.results,
-    ...payload.results,
-  ];
-};
-
-const searchUsersFulfilledReducer = (state, { payload }) => {
-  state.status = status.SUCCEEDED;
-  state.userResults.results = payload?.results || [];
-  state.userResults.total = payload.total;
-};
-
-const searchUsersrejectionReducer = (state, action) => {
-  state.status = status.FAILED;
-  if (action.payload) {
-    state.error = action.payload;
-  } else {
-    state.error = action.error.message;
-  }
-  console.error(action.error.message);
-};
-
 export const searchBooks = createAsyncThunk(
   "searchResults/searchBooks",
   ({ query }) => {
@@ -89,16 +49,60 @@ export const searchResultSlice = createSlice({
       state.query = action.payload;
     },
   },
-  extraReducers: {
-    [searchBooks.pending]: pendingReducer,
-    [searchBooks.fulfilled]: searchBooksFulfilledReducer,
-    [searchBooks.rejected]: rejectionReducer,
-    [getMoreBooks.pending]: pendingReducer,
-    [getMoreBooks.fulfilled]: getMoreBooksFulfilledReducer,
-    [getMoreBooks.rejected]: rejectionReducer,
-    [searchUsers.pending]: pendingReducer,
-    [searchUsers.fulfilled]: searchUsersFulfilledReducer,
-    [searchUsers.rejected]: searchUsersrejectionReducer,
+  extraReducers: (builder) => {
+    builder
+      // Search Books cases
+      .addCase(searchBooks.fulfilled, (state, { payload }) => {
+        state.bookResults.results = payload?.results || [];
+        state.bookResults.total = payload.total;
+      })
+      // Get More Books cases
+      .addCase(getMoreBooks.fulfilled, (state, { payload }) => {
+        state.bookResults.results = [
+          ...state.bookResults.results,
+          ...payload.results,
+        ];
+      })
+      // Search Users cases
+      .addCase(searchUsers.fulfilled, (state, { payload }) => {
+        state.userResults.results = payload?.results || [];
+        state.userResults.total = payload.total;
+      })
+      .addCase(searchUsers.rejected, (state, action) => {
+        state.status = status.FAILED;
+        state.error = action.payload || action.error.message;
+        console.error(action.error.message);
+      })
+      // Common matchers for status handling
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("searchResults/") &&
+          action.type.endsWith("/pending"),
+        (state) => {
+          state.status = status.LOADING;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("searchResults/") &&
+          action.type.endsWith("/fulfilled"),
+        (state) => {
+          state.status = status.SUCCEEDED;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("searchResults/") &&
+          action.type.endsWith("/rejected") &&
+          !action.type.includes("searchUsers"),
+        (state, action) => {
+          state.status = status.FAILED;
+          state.error = action.error.message;
+          console.error(action.error.message);
+        }
+      );
   },
 });
 
