@@ -2,6 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as ratingsThunks from "./RatingsThunks";
 import * as status from "../../data/asyncStatus";
 
+export const getUsersBookRatings = createAsyncThunk(
+  "ratings/getUsersBookRatings",
+  ratingsThunks.getUsersBookRatings
+);
+
 export const rateBook = createAsyncThunk(
   "ratings/rateBook",
   ratingsThunks.rateBook
@@ -22,6 +27,9 @@ export const ratingsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getUsersBookRatings.fulfilled, (state, { payload }) => {
+        state.ratings = payload;
+      })
       .addCase(rateBook.fulfilled, (state, { payload }) => {
         // Add the new rating to the ratings array
         state.ratings.push(payload.rating);

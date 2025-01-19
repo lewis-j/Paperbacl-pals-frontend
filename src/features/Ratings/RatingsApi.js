@@ -1,5 +1,15 @@
 import API from "../../lib/authAxios";
 
+export const getUsersBookRatings = async () => {
+  try {
+    const response = await API.get("/ratings/books/user");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const rateBook = async ({ bookId, rating }) => {
   console.log("rateBook", bookId, rating);
   try {

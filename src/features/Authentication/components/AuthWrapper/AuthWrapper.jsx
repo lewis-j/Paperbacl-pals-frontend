@@ -6,6 +6,7 @@ import * as asyncStatus from "../../../../data/asyncStatus";
 import { fetchUser } from "../../authUserSlice";
 import { fetchNotifications } from "../../../Notifications";
 import { PageLoading } from "../../../../components";
+import { getUsersBookRatings } from "../../../Ratings/RatingsSlice";
 
 export function AuthWrapper({ children }) {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ export function AuthWrapper({ children }) {
   useEffect(() => {
     if (currentUser && isSucceeded) {
       dispatch(fetchNotifications());
+      dispatch(getUsersBookRatings());
     }
   }, [dispatch, currentUser, isSucceeded]);
 

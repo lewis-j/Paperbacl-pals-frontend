@@ -1,4 +1,3 @@
-import React from "react";
 import { Modal } from "../../../../components";
 import TypeSearchBar from "../TypeSearchBar/TypeSearchBar";
 import styles from "./SearchModal.module.scss";
@@ -9,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const SearchModal = ({ isOpen, onClose, searchType }) => {
   const title =
-    searchType === "books" ? "Add books to you library" : "Find Friends";
+    searchType === "books" ? "Add books to your library" : "Find Friends";
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onTextExtracted = async (text) => {

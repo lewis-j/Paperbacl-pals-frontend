@@ -13,4 +13,3 @@ export { PageLoading } from "./PageLoading";
 export { ProgressBar } from "./ProgressBar";
 export { EditButtons } from "./EditButtons";
 export { EditInput } from "./EditInputs";
-export { Rating } from "./Rating";

@@ -1,7 +1,7 @@
-import styles from "./Rating.module.scss";
+import styles from "./StarRating.module.scss";
 import React from "react";
 
-const Rating = ({ value = 3, onChange, interactive = false }) => {
+const StarRating = ({ value = 3, onChange, interactive = false }) => {
   const handleChange = (e) => {
     if (interactive && onChange) {
       onChange(Number(e.target.value));
@@ -32,4 +32,4 @@ const Rating = ({ value = 3, onChange, interactive = false }) => {
   );
 };
 
-export default Rating;
+export default StarRating;

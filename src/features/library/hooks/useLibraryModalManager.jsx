@@ -44,7 +44,14 @@ export const useLibraryModalManager = (setActiveCardId = () => {}) => {
 
   const renderModal = () => {
     return (
-      <ModalContext.Provider value={{ openModal: modalActions.openModal }}>
+      <ModalContext.Provider
+        value={{
+          openModal: modalActions.openModal,
+          menuItems,
+          modalActions,
+          runAction,
+        }}
+      >
         <Modal isOpen={modal.isOpen} onClose={closeModal} title={modal.title}>
           {getModalContent(modal)}
         </Modal>
