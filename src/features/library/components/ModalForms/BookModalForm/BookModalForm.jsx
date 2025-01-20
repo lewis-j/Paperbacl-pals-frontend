@@ -2,7 +2,6 @@ import { useState } from "react";
 import styles from "./BookModalForm.module.scss";
 import { Button } from "../../../../../components";
 import { useModal } from "../../../../../context/ModalContext";
-import { MODAL_TYPES } from "../../../config/modals";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSpinner,
@@ -10,6 +9,7 @@ import {
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import BookDetailsView from "../BookDetailsView/BookDetailsView";
+import RateAndReviewBookForm from "../RateAndReviewBookForm/RateAndReviewBookForm";
 
 const ReadingProgressView = ({ userBook, onClose, isSubmitting }) => {
   const { book, currentPage } = userBook;
@@ -72,26 +72,8 @@ const UpdatePageForm = ({
   );
 };
 
-// const BookDetailsView = ({ userBook, onClose, isSubmitting }) => {
-//   const userBookAsyncStatus = useSelector((state) => state.userBooks.status);
-
-//   if (!userBook) return null;
-//   if (userBookAsyncStatus === asyncStatus.LOADING) return <Loading />;
-
-//   return (
-//     <>
-//       <p className={styles.description}>{userBook.book.description}</p>
-//       <div className={styles.buttonContainer}>
-//         <Button variant="cancel" onClick={onClose} disabled={isSubmitting}>
-//           Close
-//         </Button>
-//       </div>
-//     </>
-//   );
-// };
-
 const BorrowRequestsList = ({ userBook, onClose, isSubmitting }) => {
-  const { openModal } = useModal();
+  const { modalActions } = useModal();
   const requests = userBook.requests;
 
   const formatDate = (dateString) => {
@@ -105,7 +87,7 @@ const BorrowRequestsList = ({ userBook, onClose, isSubmitting }) => {
 
   const handleRequestClick = (request) => {
     onClose();
-    openModal(MODAL_TYPES.CONFIRM_BORROW_REQUEST, {
+    modalActions.confirmBorrowRequest({
       userBook: { ...userBook, request, sender: request.sender },
     });
   };
@@ -266,11 +248,10 @@ const ConfirmBorrowRequestForm = ({
 };
 
 export const BaseForm = ({
-  confirmationMsg,
+  confirmationMsg = "",
   buttonText,
   loadingText,
   onConfirm,
-  onClose,
   isSubmitting,
   error,
   successMessage = "Request accepted successfully!",
@@ -283,6 +264,7 @@ export const BaseForm = ({
   const handleSubmit = async () => {
     try {
       const success = await onConfirm();
+      console.log("success", success);
       if (success) {
         setStatus({
           message: successMessage,
@@ -311,9 +293,6 @@ export const BaseForm = ({
             </p>
           )}
           <div className={styles.buttonContainer}>
-            <Button variant="cancel" onClick={onClose} disabled={isSubmitting}>
-              Close
-            </Button>
             <Button
               variant="primary"
               onClick={handleSubmit}
@@ -335,9 +314,6 @@ export const BaseForm = ({
             />{" "}
             {status.message}
           </p>
-          <Button variant="cancel" onClick={onClose} disabled={isSubmitting}>
-            Close
-          </Button>
         </div>
       )}
     </div>
@@ -347,6 +323,7 @@ export const BaseForm = ({
 const BookModalForm = {
   ReadingProgressView,
   UpdatePageForm,
+  RateAndReviewBookForm,
   BookDetailsView,
   BorrowRequestsList,
   ConfirmBorrowRequestForm,

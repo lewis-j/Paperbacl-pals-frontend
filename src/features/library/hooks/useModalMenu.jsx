@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Modal } from "../../../components";
 import { ModalContext } from "../../../context/ModalContext";
 import { useModalActions } from "../../../features/library/hooks/useModalActions";
-import { BookModalContent } from "../config/modals/menuModalOptions";
 import { MODAL_TYPES } from "../config/modals/modalTypes";
 import { getMenuItems } from "../config/modals/menuItems";
+import BookModalContent from "../components/ModalForms/BookModalContent/BookModalContent";
 
 export const useModalMenu = (setActiveCardId) => {
   const [modal, setModal] = useState({

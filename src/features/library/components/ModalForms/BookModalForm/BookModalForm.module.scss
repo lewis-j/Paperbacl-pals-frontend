@@ -190,9 +190,11 @@
 .formContainer {
   padding: 1.5rem;
   border-radius: 0.75rem;
-  background-color: white;
   max-width: 500px;
   width: 100%;
+  button {
+    width: 100%;
+  }
 }
 
 .resultContainer {

@@ -68,7 +68,7 @@ const BorrowedPage = () => {
     description: "Check your Friends library to start borrowing books!",
     buttonText: "Friends",
     buttonIcon: faUserGroup,
-    onClick: () => navigate("friends"),
+    onClick: () => navigate("../friends"),
   };
 
   return (

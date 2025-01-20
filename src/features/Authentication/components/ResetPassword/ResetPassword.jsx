@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardBody,
@@ -26,7 +26,7 @@ export default function ResetPassword() {
 
   useEffect(() => {
     if (loading) return;
-    if (user && status === condition.SUCCEEDED) navigate("app");
+    if (user && status === condition.SUCCEEDED) navigate("../app");
   }, [user, loading, status, navigate]);
 
   async function handleSubmit(e) {

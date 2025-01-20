@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Modal } from "../../../../components";
-import { BookModalContent } from "../../../library/config/modals/menuModalOptions";
 import { MODAL_TYPES as BOOK_MODAL_TYPES } from "../../../library/config/modals";
 import { MODAL_TYPES as FRIEND_MODAL_TYPES } from "../../../Friends/hooks/friendModalTypesAndActions";
 import { useModalActions as useNotificationModalActions } from "../../../library/hooks/useModalActions";
@@ -9,6 +8,7 @@ import { useSelector } from "react-redux";
 import { runBookRequestAction } from "../../../library/utilities/bookRequestAction";
 import { FriendModalContent } from "../../../Friends/config/friendsMenuModalOptions";
 import { useFriendModalActions } from "../../../Friends/hooks/friendModalTypesAndActions";
+import BookModalContent from "../../../library/components/ModalForms/BookModalContent/BookModalContent";
 
 const useNotificationModal = (notifications) => {
   const [modal, setModal] = useState({

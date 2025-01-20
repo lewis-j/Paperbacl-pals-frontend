@@ -35,9 +35,12 @@ export const ratingsSlice = createSlice({
         state.ratings.push(payload.rating);
       })
       .addCase(updateRating.fulfilled, (state, { payload }) => {
-        const index = state.ratings.findIndex((r) => r._id === payload._id);
+        const index = state.ratings.findIndex(
+          (r) => r._id === payload.rating._id
+        );
+        console.log("index in slice", index);
         if (index !== -1) {
-          state.ratings[index] = payload;
+          state.ratings[index] = payload.rating;
         }
       })
       // Common matchers for status handling
@@ -73,6 +76,6 @@ export const ratingsSlice = createSlice({
 });
 
 export const selectUserRatingForBook = (state, bookId) =>
-  state.bookRatings.ratings.find((rating) => rating.book === bookId);
+  state.bookRatings.ratings.find((rating) => rating.book._id === bookId);
 
 export default ratingsSlice.reducer;

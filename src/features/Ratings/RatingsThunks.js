@@ -9,22 +9,22 @@ export const getUsersBookRatings = async () => {
   }
 };
 
-export const rateBook = async ({ bookId, rating }) => {
+export const rateBook = async ({ bookId, ratingAndReview }) => {
   try {
-    const response = await ratingsAPI.rateBook({ bookId, rating });
-    return response.data;
+    const response = await ratingsAPI.rateBook({ bookId, ratingAndReview });
+    return response;
   } catch (error) {
     return Promise.reject(error);
   }
 };
 
-export const updateRating = async ({ ratingId, rating }) => {
+export const updateRating = async ({ ratingId, ratingAndReview }) => {
   try {
     const response = await ratingsAPI.updateRating({
       ratingId,
-      rating,
+      ratingAndReview,
     });
-    return response.data;
+    return response;
   } catch (error) {
     return Promise.reject(error);
   }

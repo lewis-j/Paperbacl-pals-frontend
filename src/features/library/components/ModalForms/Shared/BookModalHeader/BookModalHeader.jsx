@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./BookModalHeader.module.scss";
 import { Avatar, ProgressBar } from "../../../../../../components";
 import { getProgressInPercent } from "../../../../../../utilities/bookUtilities";

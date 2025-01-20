@@ -1,10 +1,6 @@
-import { useSelector } from "react-redux";
 import { BaseForm } from "../../components/ModalForms/BookModalForm/BookModalForm";
 import BookModalForm from "../../components/ModalForms/BookModalForm/BookModalForm";
-import FormContainer from "../../components/ModalForms/Shared/FormContainer/FormContainer";
-import { useBookActions } from "../../hooks/useBookActions";
 import { MODAL_TYPES } from "./modalTypes";
-import * as asyncStatus from "../../../../data/asyncStatus";
 import { BookStatusTracker } from "../../components";
 
 const createFormModal = (label, Component, props) => ({
@@ -12,7 +8,7 @@ const createFormModal = (label, Component, props) => ({
   component: <Component {...props} />,
 });
 
-const getModalConfig = (
+export const getModalConfig = (
   type,
   modalData,
   actions,
@@ -62,6 +58,18 @@ const getModalConfig = (
         {
           ...commonProps,
           onUpdateProgress: actions.updateReadingProgress,
+        }
+      );
+    case MODAL_TYPES.RATE_AND_REVIEW_BOOK.value:
+      return createFormModal(
+        "Rate and Review Book",
+        BookModalForm.RateAndReviewBookForm,
+        {
+          ...commonProps,
+          onConfirm: {
+            rateBook: actions.rateAndReviewBook,
+            updateBookRating: actions.updateRatingAndReview,
+          },
         }
       );
 
@@ -253,41 +261,4 @@ const getModalConfig = (
     default:
       return null;
   }
-};
-
-// Modal content component
-export const BookModalContent = ({ modal, onClose }) => {
-  const actions = useBookActions();
-  const status = useSelector((state) => state.userBooks.status);
-  const error = useSelector((state) => state.userBooks.error);
-  const isSubmitting = status === asyncStatus.LOADING;
-
-  const config = getModalConfig(
-    modal.type,
-    modal.data,
-    actions,
-    isSubmitting,
-    error,
-    onClose
-  );
-
-  // Defensive rendering
-  if (!config) {
-    return null;
-  }
-
-  // If standalone component, render without FormContainer
-  if (config.standalone) {
-    return config.component;
-  }
-
-  const label = config.label || modal.title || "";
-
-  console.log("modal.data", modal.data);
-
-  return (
-    <FormContainer bookData={modal.data.userBook} label={label}>
-      {config.component}
-    </FormContainer>
-  );
 };

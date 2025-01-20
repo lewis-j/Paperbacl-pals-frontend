@@ -14,6 +14,9 @@
     transform: translateY(-2px);
     box-shadow: $standard-box-shadow-hover;
   }
+  &:hover .img {
+    transform: scale(1.05);
+  }
 
   @media (max-width: 768px) {
     height: 18em;
@@ -21,8 +24,8 @@
   }
 
   @media (max-width: 480px) {
-    height: 16em;
-    max-width: 14em;
+    height: 7em;
+    max-width: 100%;
   }
 }
 
@@ -35,11 +38,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  @media (max-width: 480px) {
+    flex-direction: row;
+  }
 }
+
 .title {
   text-align: left;
   margin: 5% 15%;
   font-family: $heading-font;
+  order: 1;
+
+  @media (max-width: 480px) {
+    margin: 0 0 0 1em;
+    flex: 1;
+    order: 2;
+  }
 
   h6 {
     font-size: 0.9em;
@@ -60,11 +77,16 @@
   box-shadow: 2px 2px 5px $shadow-color;
   object-fit: cover;
   transition: transform 0.2s ease;
+  order: 2;
 
-  &:hover {
-    transform: scale(1.05);
+  @media (max-width: 480px) {
+    height: 80%;
+    margin-top: 0;
+    margin-left: 0.5em;
+    order: 1;
   }
 }
+
 .button {
   margin-bottom: 2%;
   position: absolute;
@@ -106,5 +128,5 @@
 
 .badgeWrapper {
   position: absolute;
-  bottom: 1em;
+  top: -0.5em;
 }

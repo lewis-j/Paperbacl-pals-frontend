@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   Form,
@@ -36,7 +36,7 @@ export default function Login() {
 
   useEffect(() => {
     if (user && status === condition.SUCCEEDED) {
-      navigate("app");
+      navigate("../app");
     }
   }, [status, user, navigate, asyncErrors]);
 

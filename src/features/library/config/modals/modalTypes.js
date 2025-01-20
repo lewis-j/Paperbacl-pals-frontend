@@ -18,6 +18,10 @@ export const MODAL_TYPES = {
     "VIEW_TRANSFER_HISTORY",
     "Transfer History"
   ),
+  RATE_AND_REVIEW_BOOK: new ModalType(
+    "RATE_AND_REVIEW_BOOK",
+    "Rate and Review Book"
+  ),
 
   // Borrow Request Flow
   VIEW_BORROW_REQUESTS: new ModalType(

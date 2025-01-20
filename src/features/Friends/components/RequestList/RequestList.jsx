@@ -5,24 +5,47 @@ import { NoContent } from "../../../../components";
 import { faUserSlash } from "@fortawesome/free-solid-svg-icons";
 
 const RequestList = ({ acceptRequest }) => {
-  const { friendRequestInbox } = useSelector((state) => state.friends);
+  const { friendRequestInbox, friendRequestOutbox } = useSelector(
+    (state) => state.friends
+  );
 
-  if (!friendRequestInbox || friendRequestInbox.length === 0)
+  // Combine and sort requests
+  const allRequests = [
+    ...(friendRequestInbox || []).map((req) => ({ ...req, type: "inbox" })),
+    ...(friendRequestOutbox || []).map((req) => ({ ...req, type: "outbox" })),
+  ]
+    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+    .filter((req) => req.status === "PENDING");
+
+  if (allRequests.length === 0)
     return <NoContent icon={faUserSlash} text="No pending requests" />;
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Friend Requests</h2>
-      {friendRequestInbox.map(({ _id, sender }) => (
-        <div key={`FriendRequest:${_id}`} className={styles.user_item}>
-          <UserCard
-            username={sender.username}
-            profilePic={sender.profilePic}
-            _id={sender._id}
-          />
-          <button onClick={() => acceptRequest(sender, _id)}>Accept</button>
-        </div>
-      ))}
+      {allRequests.map((request) => {
+        const user =
+          request.type === "inbox" ? request.sender : request.recipient;
+        return (
+          <div
+            key={`FriendRequest:${request._id}`}
+            className={styles.user_item}
+          >
+            <UserCard
+              username={user.username}
+              profilePic={user.profilePic}
+              _id={user._id}
+            />
+            {request.type === "inbox" ? (
+              <button onClick={() => acceptRequest(user, request._id)}>
+                Accept
+              </button>
+            ) : (
+              <span className={styles.pending_label}>Pending</span>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };

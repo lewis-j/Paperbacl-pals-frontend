@@ -25,6 +25,10 @@ export const useModalActions = (openModal) => {
       openModal(MODAL_TYPES.COMPLETE_BOOK, { userBook }),
     viewTransferHistory: (userBook) =>
       openModal(MODAL_TYPES.VIEW_TRANSFER_HISTORY, { userBook }),
+    rateAndReviewBook: (userBook, newRating) =>
+      openModal(MODAL_TYPES.RATE_AND_REVIEW_BOOK, {
+        userBook: { ...userBook, rating: newRating },
+      }),
 
     // Borrow Request Flow
     viewBorrowRequests: (userBook) =>

@@ -1,8 +1,7 @@
-import React from "react";
 import styles from "./FormContainer.module.scss";
 import BookModalHeader from "../BookModalHeader/BookModalHeader";
 
-const FormContainer = ({ children, bookData, label }) => {
+const FormContainer = ({ children, bookData }) => {
   console.log("bookData", bookData);
   return (
     <div className={styles.container}>
@@ -13,7 +12,6 @@ const FormContainer = ({ children, bookData, label }) => {
         sender={bookData.sender}
         dueDate={bookData.dueDate}
       />
-      <div className={styles.label}>{label}</div>
       <div className={styles.formContent}>{children}</div>
     </div>
   );

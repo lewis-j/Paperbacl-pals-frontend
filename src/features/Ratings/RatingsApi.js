@@ -10,10 +10,14 @@ export const getUsersBookRatings = async () => {
   }
 };
 
-export const rateBook = async ({ bookId, rating }) => {
-  console.log("rateBook", bookId, rating);
+export const rateBook = async ({ bookId, ratingAndReview }) => {
+  console.log("rateBook", bookId, ratingAndReview);
   try {
-    const response = await API.post(`/ratings/books/${bookId}`, { rating });
+    const response = await API.post(
+      `/ratings/books/${bookId}`,
+      ratingAndReview
+    );
+    console.log("response in rateBook", response.data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -21,9 +25,13 @@ export const rateBook = async ({ bookId, rating }) => {
   }
 };
 
-export const updateRating = async ({ ratingId, rating }) => {
+export const updateRating = async ({ ratingId, ratingAndReview }) => {
   try {
-    const response = await API.patch(`/ratings/books/${ratingId}`, { rating });
+    const response = await API.patch(
+      `/ratings/books/${ratingId}`,
+      ratingAndReview
+    );
+    console.log("response in updaterating", response.data);
     return response.data;
   } catch (error) {
     console.error(error);

@@ -1,4 +1,8 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  createSelector,
+} from "@reduxjs/toolkit";
 import * as status from "../../data/asyncStatus";
 import * as notificationsApi from "./notificationsApi";
 import { FRIEND_REQUEST_STATUS } from "../../data/friendRequestStatus";
@@ -91,23 +95,32 @@ export { fetchNotifications, markAsRead, markAllAsRead };
 export const { setNotifications, addNotification, setNotificationsIsOpen } =
   notificationsSlice.actions;
 
-export const selectNotificationByRequestRefIdCreator =
-  (state) => (requestRefId, status) => {
-    const notifications = state.notifications.list.filter(
-      (notification) => notification.requestRef?._id === requestRefId
-    );
-    console.log("status", status);
-    console.log("notifications", notifications);
-    const notification = notifications.find(
-      (notification) => notification.status === status
-    );
-    console.log("notification", notification);
-    if (!notification?._id) {
-      console.warn(`No notification found for requestRefId: ${requestRefId}`);
-      return null;
+export const selectNotificationByRequestRefIdCreator = () => {
+  // Memoize the inner selector using createSelector
+  return createSelector(
+    [
+      (state) => state.notifications.list,
+      (_, requestRefId) => requestRefId,
+      (_, __, status) => status,
+    ],
+    (notifications, requestRefId, status) => {
+      const filteredNotifications = notifications.filter(
+        (notification) => notification.requestRef?._id === requestRefId
+      );
+      console.log("status", status);
+      console.log("notifications", filteredNotifications);
+      const notification = filteredNotifications.find(
+        (notification) => notification.status === status
+      );
+      console.log("notification", notification);
+      if (!notification?._id) {
+        console.warn(`No notification found for requestRefId: ${requestRefId}`);
+        return null;
+      }
+      return notification;
     }
-    return notification;
-  };
+  );
+};
 
 export const findPendingFriendRequestNotificationCreator =
   (state) => (requestRefId) => {

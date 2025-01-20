@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   Form,
@@ -48,7 +48,7 @@ export default function Signup() {
 
   useEffect(() => {
     if (user && status === condition.SUCCEEDED) {
-      navigate("app");
+      navigate("../app");
     }
   }, [status, user, navigate]);
 

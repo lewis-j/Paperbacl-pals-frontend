@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Modal } from "../../../components";
 import { ModalContext } from "../../../context/ModalContext";
 import { useModalActions } from "../../../features/library/hooks/useModalActions";
-import { BookModalContent } from "../config/modals/menuModalOptions";
 import { MODAL_TYPES } from "../config/modals/modalTypes";
 import { getMenuItems } from "../config/modals/menuItems";
 import { runBookRequestAction } from "../utilities/bookRequestAction";
+import BookModalContent from "../components/ModalForms/BookModalContent/BookModalContent";
 
 export const useLibraryModalManager = (setActiveCardId = () => {}) => {
   const [modal, setModal] = useState({
@@ -47,9 +47,7 @@ export const useLibraryModalManager = (setActiveCardId = () => {}) => {
       <ModalContext.Provider
         value={{
           openModal: modalActions.openModal,
-          menuItems,
           modalActions,
-          runAction,
         }}
       >
         <Modal isOpen={modal.isOpen} onClose={closeModal} title={modal.title}>

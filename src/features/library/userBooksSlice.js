@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as userBookApi from "./userBookCalls";
 import * as status from "../../data/asyncStatus";
-import { rateBook } from "../Ratings/RatingsSlice";
+import { rateBook, updateRating } from "../Ratings/RatingsSlice";
 
 export const addBook = createAsyncThunk(
   "userBooks/addBooks",
@@ -263,6 +263,7 @@ export const userBooksSlice = createSlice({
       )
       .addCase(getAllBookRequests.fulfilled, getAllBookRequestsFulfilled)
       .addCase(rateBook.fulfilled, updateBookRatingFulfilled)
+      .addCase(updateRating.fulfilled, updateBookRatingFulfilled)
       // Add matchers for common status handling
       .addMatcher(
         (action) =>

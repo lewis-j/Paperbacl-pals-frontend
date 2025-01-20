@@ -18,6 +18,8 @@ import {
 } from "../../Notifications/notificationsSlice";
 import REQUEST_STATUS from "../../../data/requestStatus";
 import { useCamera } from "../../../components/CameraCapture/hooks/useCamera";
+import { rateBook, updateRating } from "../../Ratings/RatingsSlice";
+
 // Constants
 const REQUEST_OWNER = {
   BORROWER: "borrower",
@@ -26,11 +28,9 @@ const REQUEST_OWNER = {
 
 export const useBookActions = () => {
   const dispatch = useDispatch();
-  const selectNotificationByRequestRefId = useSelector(
+  const notificationSelector = useSelector(
     selectNotificationByRequestRefIdCreator
   );
-  const { takePicture } = useCamera();
-
   // Helper function to handle dispatch operations
   const dispatchAction = async (action, errorMessage = null) => {
     try {
@@ -41,6 +41,15 @@ export const useBookActions = () => {
       return false;
     }
   };
+  const rateAndReviewBook = async (bookId, ratingAndReview) => {
+    return await dispatchAction(rateBook({ bookId, ratingAndReview }));
+  };
+
+  const updateRatingAndReview = async (ratingId, ratingAndReview) => {
+    return await dispatchAction(updateRating({ ratingId, ratingAndReview }));
+  };
+
+  const { takePicture } = useCamera();
 
   const requestBookReturn = async (request_id) => {
     return await dispatchAction(
@@ -102,10 +111,7 @@ export const useBookActions = () => {
 
       // Only mark notification as read if request update was successful
       if (requestUpdateSuccess) {
-        const notification = selectNotificationByRequestRefId(
-          request_id,
-          currentStatus
-        );
+        const notification = notificationSelector(request_id, currentStatus);
         if (notification && !notification.isRead) {
           return await dispatchAction(
             markAsRead(notification._id),
@@ -238,13 +244,15 @@ export const useBookActions = () => {
       "error in declineLendingRequest"
     );
 
-  const extendBorrow = (request_id) => alert("feature on the way");
+  const extendBorrow = (request_id) => alert("feature on the way", request_id);
   // dispatchAction(extendBorrowRequest(request_id), "error in extendBorrow");
 
   return {
     // Library Management
     deleteBookFromLibrary,
     setCurrentRead,
+    rateAndReviewBook,
+    updateRatingAndReview,
     // Reading Progress
     updateReadingProgress,
     completeBook,

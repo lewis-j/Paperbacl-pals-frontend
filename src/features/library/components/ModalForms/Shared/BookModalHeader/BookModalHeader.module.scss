@@ -9,7 +9,8 @@
 
 .bookCard {
   display: flex;
-
+  flex-direction: row;
+  padding: 1rem;
   gap: 1.5rem;
   align-items: flex-start;
 }
@@ -48,7 +49,6 @@
 
 .title {
   font-family: $heading-font;
-  text-align: center;
   color: $title-color;
   font-size: 1.5rem;
   margin: 0;
@@ -56,7 +56,6 @@
 
 .authors {
   font-family: $paragraph-font;
-  text-align: center;
   color: $secondary-color;
   font-size: 0.9rem;
   margin: 0;
