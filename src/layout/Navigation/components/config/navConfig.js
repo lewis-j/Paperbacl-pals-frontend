@@ -50,6 +50,12 @@ export const navItems = {
       path: "profile",
     },
     { id: "settings", label: "Settings", icon: faCog, path: "settings" },
+    {
+      id: "transactionHistory",
+      label: "Transaction History",
+      icon: faBook,
+      path: "transaction-history",
+    },
     { id: "logout", label: "Logout", icon: faSignOut, action: "logout" },
   ],
 };
