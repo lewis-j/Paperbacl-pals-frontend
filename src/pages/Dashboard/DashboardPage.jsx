@@ -12,7 +12,6 @@ import { useBookSelectors } from "../../features/library/hooks/useBookSelectors"
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useLibraryModalManager } from "../../features/library/hooks/useLibraryModalManager";
-import SectionWrapper from "../../layout/Section/SectionWrapper";
 
 /**
  * Dashboard page component that organizes and displays the user's book activities.
@@ -62,32 +61,30 @@ export const DashboardPage = () => {
   return (
     <div className={`container ${styles.container}`}>
       {renderModal()}
-      <SectionWrapper>
-        <CurrentReadSection
-          currentRead={currentRead}
-          activeCard={activeCardId}
-          setActiveCard={setActiveCardId}
-          menuItems={menuItems.currentRead(currentRead)}
-        />
-        <BooksFromFriendsSection
-          books={booksFromFriends}
-          activeCard={activeCardId}
-          setActiveCard={setActiveCardId}
-          menuItems={fromFriendsMenuItems}
-        />
-        <BooksToFriendsSection
-          books={booksToFriends}
-          activeCard={activeCardId}
-          setActiveCard={setActiveCardId}
-          menuItems={toFriendsMenuItems}
-        />
-        <BookRequestsSection
-          requests={ownedBookRequests}
-          activeCard={activeCardId}
-          setActiveCard={setActiveCardId}
-          menuItems={requestMenuItems}
-        />
-      </SectionWrapper>
+      <CurrentReadSection
+        currentRead={currentRead}
+        activeCard={activeCardId}
+        setActiveCard={setActiveCardId}
+        menuItems={menuItems.currentRead(currentRead)}
+      />
+      <BooksFromFriendsSection
+        books={booksFromFriends}
+        activeCard={activeCardId}
+        setActiveCard={setActiveCardId}
+        menuItems={fromFriendsMenuItems}
+      />
+      <BooksToFriendsSection
+        books={booksToFriends}
+        activeCard={activeCardId}
+        setActiveCard={setActiveCardId}
+        menuItems={toFriendsMenuItems}
+      />
+      <BookRequestsSection
+        requests={ownedBookRequests}
+        activeCard={activeCardId}
+        setActiveCard={setActiveCardId}
+        menuItems={requestMenuItems}
+      />
     </div>
   );
 };

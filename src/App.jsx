@@ -11,6 +11,8 @@ import {
   FriendsPage,
   FriendsLibrary,
   ProfilePage,
+  BookDetailsPage,
+  TransactionHistoryPage,
 } from "./pages";
 import { DashboardPage } from "./pages/Dashboard/DashboardPage";
 import { PageLoading, PrivateRoute } from "./components";
@@ -55,12 +57,17 @@ function App() {
           <Route path="library" element={<Library />} />
           <Route path="borrowed" element={<BorrowedPage />} />
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="book-details/:bookId" element={<BookDetailsPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="friends" element={<FriendsPage />}>
             <Route path="library" element={<FriendsLibrary />} />
           </Route>
           <Route path="borrowing-history" element={<BorrowingHistory />} />
           <Route path="lending-history" element={<LendingHistory />} />
+          <Route
+            path="transaction-history"
+            element={<TransactionHistoryPage />}
+          />
         </Route>
 
         <Route path="/privacy" element={<PrivacyPolicy />} />

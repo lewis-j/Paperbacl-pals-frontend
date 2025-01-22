@@ -1,0 +1,187 @@
+@use "../../style/variables" as *;
+
+.pageContainer {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
+}
+
+.bookDetailsContainer {
+  background: $grey-1;
+  border-radius: 8px;
+  box-shadow: $standard-box-shadow;
+}
+
+.bookHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 1.5rem;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+}
+
+.bookCard {
+  flex-shrink: 0;
+}
+
+.imgContainer {
+  width: 200px;
+  height: 300px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: $standard-box-shadow;
+
+  @media (max-width: 480px) {
+    width: 120px;
+    height: 180px;
+  }
+}
+
+.coverImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.headerDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.title {
+  font-family: $heading-font;
+  color: $title-color;
+  font-size: 2rem;
+  margin: 0;
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}
+
+.authors {
+  font-family: $paragraph-font;
+  color: $secondary-color;
+  font-size: 1.2rem;
+  margin: 0;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+}
+
+.ratingContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+
+  p {
+    margin: 0;
+    color: $secondary-color;
+  }
+}
+
+.editRatingButton {
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  background: transparent;
+  cursor: pointer;
+  color: $secondary-color;
+
+  &:hover {
+    color: $accepted-color;
+    transition: color 0.2s ease, transform 0.2s ease;
+    transform: translateY(-2px);
+  }
+}
+
+.descriptionContainer {
+  padding: 1.5rem;
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
+}
+
+.sectionTitle {
+  font-family: $heading-font;
+  color: $title-color;
+  font-size: 1.5rem;
+  margin: 0 0 1rem 0;
+}
+
+.description {
+  color: $title-color;
+  line-height: 1.5;
+  margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    max-height: 200px;
+  }
+}
+
+.reviewsSection {
+  padding: 1.5rem;
+  border-top: 1px solid $grey-2;
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
+}
+
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reviewCard {
+  background: white;
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: $standard-box-shadow;
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.reviewUser {
+  font-weight: bold;
+  color: $title-color;
+}
+
+.reviewDate {
+  color: $secondary-color;
+  font-size: 0.9rem;
+}
+
+.reviewText {
+  color: $title-color;
+  line-height: 1.5;
+  margin: 0;
+}

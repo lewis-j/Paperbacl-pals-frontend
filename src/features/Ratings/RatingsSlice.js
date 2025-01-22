@@ -7,6 +7,11 @@ export const getUsersBookRatings = createAsyncThunk(
   ratingsThunks.getUsersBookRatings
 );
 
+export const getBookRatings = createAsyncThunk(
+  "ratings/getBookRatings",
+  ratingsThunks.getBookRatings
+);
+
 export const rateBook = createAsyncThunk(
   "ratings/rateBook",
   ratingsThunks.rateBook
@@ -21,6 +26,7 @@ export const ratingsSlice = createSlice({
   name: "ratings",
   initialState: {
     ratings: [],
+    bookRatings: {},
     status: status.IDLE,
     error: null,
   },
@@ -31,17 +37,18 @@ export const ratingsSlice = createSlice({
         state.ratings = payload;
       })
       .addCase(rateBook.fulfilled, (state, { payload }) => {
-        // Add the new rating to the ratings array
         state.ratings.push(payload.rating);
       })
       .addCase(updateRating.fulfilled, (state, { payload }) => {
         const index = state.ratings.findIndex(
           (r) => r._id === payload.rating._id
         );
-        console.log("index in slice", index);
         if (index !== -1) {
           state.ratings[index] = payload.rating;
         }
+      })
+      .addCase(getBookRatings.fulfilled, (state, { payload }) => {
+        state.bookRatings[payload.bookId] = payload.ratings;
       })
       // Common matchers for status handling
       .addMatcher(
@@ -77,5 +84,8 @@ export const ratingsSlice = createSlice({
 
 export const selectUserRatingForBook = (state, bookId) =>
   state.bookRatings.ratings.find((rating) => rating.book._id === bookId);
+
+export const selectBookRatings = (state, bookId) =>
+  state.bookRatings.bookRatings[bookId] || [];
 
 export default ratingsSlice.reducer;

@@ -91,15 +91,17 @@ const ProfilePage = () => {
       </div>
 
       {/* Recent Activity */}
-      <section className={styles.activity}>
+      <section
+        className={styles.history}
+        onClick={() => navigate("../transaction-history")}
+      >
         <h2>
           <FontAwesomeIcon
             icon={faClockRotateLeft}
             className={styles.sectionIcon}
           />
-          Recent Activity
+          Transaction History
         </h2>
-        {/* ActivityFeed component */}
       </section>
 
       {/* Reviews Section */}

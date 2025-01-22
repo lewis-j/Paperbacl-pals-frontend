@@ -17,7 +17,7 @@ export const getModalConfig = (
   onClose
 ) => {
   const { userBook } = modalData;
-  console.log("userBook", userBook);
+  console.log("userBook", userBook.userBook);
   const commonProps = {
     userBook,
     onClose,

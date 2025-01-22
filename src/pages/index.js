@@ -7,3 +7,5 @@ export { ProfilePage } from "./Profile";
 export { SettingsPage } from "./Settings";
 export { LendingHistory } from "./LendingHistory";
 export { BorrowingHistory } from "./BorrowingHistory";
+export { BookDetailsPage } from "./BookDetails";
+export { TransactionHistoryPage } from "./TransactionHistory";

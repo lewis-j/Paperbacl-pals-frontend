@@ -12,3 +12,26 @@
     color: green;
   }
 }
+
+.sliderWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 90vw;
+}
+
+//   :global(.slick-track) {
+//     display: flex;
+//     align-items: stretch;
+//   }
+
+//   :global(.slick-list) {
+//     overflow: hidden;
+//   }
+// }
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
+}

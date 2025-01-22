@@ -47,7 +47,7 @@ export const categorizeOwnedBooksByStatus = (ownedBooks) => {
 export const categorizeBorrowedBooksByStatus = (borrowedBooks) => {
   const categorizedBooks = {};
   borrowedBooks.forEach((userBook) => {
-    const status = userBook.request.status;
+    const status = userBook?.request?.status;
     categorizedBooks[status] = categorizedBooks[status]
       ? [...categorizedBooks[status], userBook]
       : [userBook];

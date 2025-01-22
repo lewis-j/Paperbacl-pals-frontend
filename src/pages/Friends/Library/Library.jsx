@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import {
   UserBookCardSm,
@@ -8,31 +8,22 @@ import {
 } from "../../../features/library";
 import { upperFirst } from "../../../utilities/stringUtil";
 import styles from "./Library.module.scss";
-import { useBookSelectors } from "../../../features/library/hooks/useBookSelectors";
-import { useModalMenu } from "../../../features/library/hooks/useModalMenu";
 import { Badge } from "../../../components";
+import { useLibraryModalManager } from "../../../features/library/hooks/useLibraryModalManager";
 import BookCardBadge from "../../../features/library/components/BookCards/BookCardBadge/BookCardBadge";
 import { Col } from "../../../lib/BootStrap";
+import { useFriendsBooksSelector } from "../../../features/library/hooks/useFriendsBooksSelector";
 
 const Library = () => {
   const currentFriend = useSelector((state) => state.friends.currentFriend);
   const currentUser = useSelector((state) => state.authUser.currentUser);
-  const { username, ownedBooks } = currentFriend;
-  const books = ownedBooks.map((book) => ({
-    ...book,
-    owner: {
-      _id: currentFriend._id,
-      username: currentFriend.username,
-      profilePic: currentFriend.profilePic,
-    },
-  }));
+  const { username } = currentFriend;
+
   const [activeCardId, setActiveCardId] = useState("");
-  const { menuItems, renderModal } = useModalMenu(setActiveCardId);
+  const { menuItems, renderModal } = useLibraryModalManager(setActiveCardId);
 
   const { booksInLibrary: checkedInBooks, booksToFriends: checkedOutBooks } =
-    useBookSelectors({
-      books: { owned: books },
-    });
+    useFriendsBooksSelector();
 
   // const checkedOutMenuItems = menuItems.booksToFriends(checkedOutBooks);
 
@@ -42,6 +33,8 @@ const Library = () => {
       (req) => req.sender._id === currentUser._id
     );
     const _userBook = { ...userBook, request: foundRequest };
+
+    console.log("userBook in filterRequest", userBook);
 
     switch (foundRequest?.status) {
       case bookRequestStatus.CHECKED_IN:
@@ -91,6 +84,7 @@ const Library = () => {
   };
 
   const renderCheckedInBookCards = (userBooks) => {
+    console.log("userBooks in renderCheckedInBookCards", userBooks);
     return userBooks.map((userBook) => {
       const { _id, book } = userBook;
       const { menu, badge } = filterRequest(userBook);

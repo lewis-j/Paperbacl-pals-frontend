@@ -70,7 +70,7 @@ const MobileNavigation = ({ openProfileMenu }) => {
             />
           ) : (
             <div ref={searchContainerRef} className={styles.searchContainer}>
-              <SearchBar />
+              <SearchBar mobileView={true} />
             </div>
           )}
           {!isSearchOpen && (

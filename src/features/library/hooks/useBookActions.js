@@ -28,8 +28,8 @@ const REQUEST_OWNER = {
 
 export const useBookActions = () => {
   const dispatch = useDispatch();
-  const notificationSelector = useSelector(
-    selectNotificationByRequestRefIdCreator
+  const getNotification = useSelector(
+    selectNotificationByRequestRefIdCreator()
   );
   // Helper function to handle dispatch operations
   const dispatchAction = async (action, errorMessage = null) => {
@@ -111,7 +111,7 @@ export const useBookActions = () => {
 
       // Only mark notification as read if request update was successful
       if (requestUpdateSuccess) {
-        const notification = notificationSelector(request_id, currentStatus);
+        const notification = getNotification(request_id, currentStatus);
         if (notification && !notification.isRead) {
           return await dispatchAction(
             markAsRead(notification._id),

@@ -11,9 +11,10 @@ const BooksFromFriendsSection = ({
   setActiveCard,
   menuItems,
 }) => {
+  console.log("books in booksFromFriendsSection", books);
   const renderBook = (userBook, idx) => {
     const { _id, book, owner, dueDate, currentPage } = userBook;
-
+    console.log("idx", idx);
     const userBookSnapshot = { ...userBook };
 
     return (
@@ -32,6 +33,7 @@ const BooksFromFriendsSection = ({
   };
 
   const renderContent = () => {
+    console.log("books in renderContent", books);
     if (books.length === 0) {
       return (
         <EmptyStatePrompt

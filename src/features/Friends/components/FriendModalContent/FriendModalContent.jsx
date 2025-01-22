@@ -17,6 +17,7 @@ import {
   findPendingFriendRequestNotificationCreator,
 } from "../../../Notifications/notificationsSlice";
 import { Button } from "../../../../components";
+import * as asyncStatus from "../../../../data/asyncStatus";
 
 const FriendModalContainer = ({ user, children: actionButtons }) => {
   return (
@@ -47,6 +48,10 @@ const FriendRequestForm = ({
   resultMessage,
 }) => {
   const { isSubmitting, isSuccess, isError, error } = useStatusHandlers();
+  console.log("isSubmitting", isSubmitting);
+  console.log("isSuccess", isSuccess);
+  console.log("isError", isError);
+  console.log("error", error);
   return (
     <div className={styles.formContainer}>
       {!resultMessage ? (
@@ -169,12 +174,13 @@ const RemoveFriend = ({ user, onClose }) => {
 
 const useStatusHandlers = () => {
   const status = useSelector((state) => state.friends.status);
+  console.log("status", status);
   const error = useSelector((state) => state.friends.error);
 
   return {
-    isSubmitting: status === status.LOADING,
-    isSuccess: status === status.SUCCEEDED,
-    isError: status === status.FAILED,
+    isSubmitting: status === asyncStatus.LOADING,
+    isSuccess: status === asyncStatus.SUCCEEDED,
+    isError: status === asyncStatus.FAILED,
     error,
   };
 };

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import chatApi from "./chatApi";
 
 const initialState = {
-  messages: [],
+  messages: {},
   currentRoomId: null,
   paticipantId: null,
   isChatOpen: false,
@@ -10,6 +10,8 @@ const initialState = {
   loading: false,
   error: null,
   participants: {},
+  hasMoreMessages: true,
+  currentPage: 1,
 };
 
 export const getMessages = createAsyncThunk(
@@ -32,7 +34,11 @@ const chatSlice = createSlice({
   initialState,
   reducers: {
     addMessage: (state, action) => {
-      state.messages.push(action.payload);
+      const { roomId } = action.payload;
+      if (!state.messages[roomId]) {
+        state.messages[roomId] = [];
+      }
+      state.messages[roomId].push(action.payload);
     },
     setCurrentRoomId: (state, action) => {
       state.currentRoomId = action.payload;
@@ -57,7 +63,18 @@ const chatSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getMessages.fulfilled, (state, { payload }) => {
-        state.messages = payload;
+        const { roomId, messages, hasMore, page } = payload;
+        if (!state.messages[roomId]) {
+          state.messages[roomId] = [];
+        }
+
+        if (page === 1) {
+          state.messages[roomId] = messages;
+        } else {
+          state.messages[roomId] = [...messages, ...state.messages[roomId]];
+        }
+        state.hasMoreMessages = hasMore;
+        state.currentPage = page;
       })
       .addCase(fetchEnterChatRoom.fulfilled, (state, { payload }) => {
         state.currentRoomId = payload.roomId;

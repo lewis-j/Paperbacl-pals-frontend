@@ -88,7 +88,9 @@ const BorrowRequestsList = ({ userBook, onClose, isSubmitting }) => {
   const handleRequestClick = (request) => {
     onClose();
     modalActions.confirmBorrowRequest({
-      userBook: { ...userBook, request, sender: request.sender },
+      ...userBook,
+      request,
+      sender: request.sender,
     });
   };
 

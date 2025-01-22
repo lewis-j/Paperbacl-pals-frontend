@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { io } from "socket.io-client";
 import { addMessage, getMessages } from "../../chatSlice";
@@ -11,18 +11,24 @@ const nestURL = import.meta.env.VITE_NEST_URI;
 const Chat = ({ participantId }) => {
   const dispatch = useDispatch();
   const roomId = useSelector((state) => state.chat.currentRoomId);
-  const messages = useSelector((state) => state.chat.messages);
+  const messages = useSelector((state) => state.chat.messages[roomId] || []);
   const [socket, setSocket] = useState(null);
   const [messageInput, setMessageInput] = useState("");
   const currentUser = useSelector((state) => state.authUser.currentUser);
-  //get selectedUserId
+  const hasMoreMessages = useSelector((state) => state.chat.hasMoreMessages);
+  const currentPage = useSelector((state) => state.chat.currentPage);
+  const loading = useSelector((state) => state.chat.loading);
+  const messagesContainerRef = useRef(null);
 
   useEffect(() => {
     const newSocket = io(nestURL);
     setSocket(newSocket);
 
     newSocket.emit("joinRoom", roomId);
-    dispatch(getMessages(roomId));
+
+    if (!messages.length) {
+      dispatch(getMessages({ roomId, page: 1 }));
+    }
 
     newSocket.on("newMessage", (message) => {
       dispatch(addMessage(message));
@@ -32,7 +38,14 @@ const Chat = ({ participantId }) => {
       newSocket.emit("leaveRoom", roomId);
       newSocket.disconnect();
     };
-  }, [roomId, dispatch]);
+  }, [roomId, dispatch, messages.length]);
+
+  const handleScroll = () => {
+    const container = messagesContainerRef.current;
+    if (container.scrollTop === 0 && !loading && hasMoreMessages) {
+      dispatch(getMessages({ roomId, page: currentPage + 1 }));
+    }
+  };
 
   const sendMessage = () => {
     if (messageInput.trim() && socket) {
@@ -47,7 +60,12 @@ const Chat = ({ participantId }) => {
   };
   return (
     <div className={chatStyles.chatContainer}>
-      <div className={chatStyles.messagesContainer}>
+      <div
+        className={chatStyles.messagesContainer}
+        ref={messagesContainerRef}
+        onScroll={handleScroll}
+      >
+        {loading && <div className={chatStyles.loading}>Loading...</div>}
         {messages?.map((msg, index) => (
           <div
             key={index}

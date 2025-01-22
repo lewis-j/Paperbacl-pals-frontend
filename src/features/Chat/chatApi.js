@@ -1,11 +1,14 @@
 import API from "../../lib/authAxios";
 
-export const getMessages = async (roomId) => {
+export const getMessages = async ({ roomId, page = 1, limit = 20 }) => {
   try {
-    const res = await API.get(`chat/${roomId}/messages`);
-    return res.data;
+    const res = await API.get(`chat/${roomId}/messages`, {
+      params: { page, limit },
+    });
+    return { ...res.data, roomId };
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 

@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  createSelector,
+} from "@reduxjs/toolkit";
 import * as userBookApi from "./userBookCalls";
 import * as status from "../../data/asyncStatus";
 import { rateBook, updateRating } from "../Ratings/RatingsSlice";
@@ -328,5 +332,53 @@ export const createBookFromRequestFinder = (state) => (request_id) => {
 };
 
 export const { setBooks, setCurrentRead } = userBooksSlice.actions;
+
+export const selectAllUserBooks = createSelector(
+  [
+    (state) => state.userBooks.books.owned,
+    (state) => state.userBooks.books.borrowed,
+  ],
+  (ownedBooks, borrowedBooks) => [
+    ...(ownedBooks || []),
+    ...(borrowedBooks || []),
+  ]
+);
+
+export const selectBookById = createSelector(
+  [selectAllUserBooks, (_, bookId) => bookId],
+  (allBooks, bookId) => allBooks.find((book) => book.book._id === bookId)
+);
+
+export const selectBooksWithHistory = createSelector(
+  [
+    (state) => state.userBooks.books.borrowed,
+    (state) => state.userBooks.books.owned,
+  ],
+  (borrowedBooks, ownedBooks) => {
+    const booksWithHistory = [];
+
+    // Check borrowed books
+    borrowedBooks?.forEach((book) => {
+      if (book.request?.statusHistory?.length > 0) {
+        booksWithHistory.push({
+          ...book,
+          isOwned: false,
+        });
+      }
+    });
+
+    // Check owned books
+    ownedBooks?.forEach((book) => {
+      if (book.requests?.some((request) => request.statusHistory?.length > 0)) {
+        booksWithHistory.push({
+          ...book,
+          isOwned: true,
+        });
+      }
+    });
+
+    return booksWithHistory;
+  }
+);
 
 export default userBooksSlice.reducer;

@@ -81,13 +81,14 @@
 
 // Section Styles
 .bookshelves,
-.activity,
+.history,
 .reviews {
   margin-bottom: 3rem;
   padding: 2rem;
   background-color: white;
   border-radius: 8px;
   box-shadow: $standard-box-shadow;
+  cursor: pointer;
 
   h2 {
     font-family: $heading-font;
@@ -96,6 +97,10 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    transition: transform 0.2s ease;
+    &:hover {
+      transform: translateY(-5px);
+    }
   }
 }
 

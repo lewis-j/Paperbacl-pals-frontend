@@ -10,6 +10,16 @@ export const getUsersBookRatings = async () => {
   }
 };
 
+export const getBookRatings = async ({ bookId }) => {
+  try {
+    const response = await API.get(`/ratings/books/${bookId}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const rateBook = async ({ bookId, ratingAndReview }) => {
   console.log("rateBook", bookId, ratingAndReview);
   try {

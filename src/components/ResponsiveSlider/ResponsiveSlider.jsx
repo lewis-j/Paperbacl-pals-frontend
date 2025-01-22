@@ -25,45 +25,58 @@ const PrevArrow = ({ className, style, onClick }) => {
   );
 };
 const ResponsiveSlider = ({ className, children }) => {
-  const getSlideItems = (num) => Math.min(children?.length || 0, num);
+  // const getSlideItems = (num) => Math.min(children?.length || 0, num);
+  const slideCount = children?.length || 0;
+
+  const createSettingsWithSetPoint = (slides, totalSlides) => {
+    const isOverContainer = slides > totalSlides;
+    console.log("slides", slides);
+    console.log("totalSlides", totalSlides);
+    console.log("isOverContainer", isOverContainer);
+    return {
+      dots: isOverContainer,
+      slidesToShow: totalSlides,
+      nextArrow: isOverContainer ? <NextArrow /> : null,
+      prevArrow: isOverContainer ? <PrevArrow /> : null,
+      swipeToSlide: isOverContainer,
+      swipe: isOverContainer,
+      infinite: isOverContainer,
+    };
+  };
 
   var settings = {
-    className: _s(className, styles.contianer),
-    dots: true,
-    infinite: true,
+    className: _s(className, styles.container),
+    ...createSettingsWithSetPoint(slideCount, 4),
+    infinite: false,
     speed: 500,
-    slidesToShow: getSlideItems(4),
     slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    centerMode: true,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: getSlideItems(3),
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
+          ...createSettingsWithSetPoint(slideCount, 3),
         },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: getSlideItems(2),
-          slidesToScroll: 2,
-          initialSlide: 2,
+          ...createSettingsWithSetPoint(slideCount, 2),
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          ...createSettingsWithSetPoint(slideCount, 1),
         },
       },
     ],
   };
-  return <Slider {...settings}>{children}</Slider>;
+  return (
+    <div className={styles.sliderWrapper}>
+      <Slider {...settings}>{children}</Slider>
+    </div>
+  );
 };
 
 export default ResponsiveSlider;

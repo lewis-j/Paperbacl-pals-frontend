@@ -96,30 +96,31 @@ export const { setNotifications, addNotification, setNotificationsIsOpen } =
   notificationsSlice.actions;
 
 export const selectNotificationByRequestRefIdCreator = () => {
-  // Memoize the inner selector using createSelector
-  return createSelector(
-    [
-      (state) => state.notifications.list,
-      (_, requestRefId) => requestRefId,
-      (_, __, status) => status,
-    ],
-    (notifications, requestRefId, status) => {
+  const memoizedSelector = createSelector(
+    [(state) => state.notifications.list],
+    (notifications) => (requestRefId, status) => {
+      if (!notifications || !requestRefId || !status) {
+        console.warn("Missing required parameters for notification selector");
+        return null;
+      }
+
       const filteredNotifications = notifications.filter(
-        (notification) => notification.requestRef?._id === requestRefId
+        (notification) => notification?.requestRef?._id === requestRefId
       );
-      console.log("status", status);
-      console.log("notifications", filteredNotifications);
+
       const notification = filteredNotifications.find(
-        (notification) => notification.status === status
+        (notification) => notification?.status === status
       );
-      console.log("notification", notification);
-      if (!notification?._id) {
+
+      if (!notification) {
         console.warn(`No notification found for requestRefId: ${requestRefId}`);
         return null;
       }
+
       return notification;
     }
   );
+  return memoizedSelector;
 };
 
 export const findPendingFriendRequestNotificationCreator =

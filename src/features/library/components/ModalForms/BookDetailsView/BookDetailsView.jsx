@@ -5,9 +5,11 @@ import { selectUserRatingForBook } from "../../../../../features/Ratings/Ratings
 import styles from "./BookDetailsView.module.scss";
 import { StarRating } from "../../../../Ratings/components";
 import { useModal } from "../../../../../context/ModalContext";
+import { useNavigate } from "react-router-dom";
 
 const BookDetailsView = ({ userBook }) => {
   const { modalActions } = useModal();
+  const navigate = useNavigate();
   const userBookAsyncStatus = useSelector((state) => state.userBooks.status);
   const existingRating = useSelector((state) =>
     selectUserRatingForBook(state, userBook?.book?._id)
@@ -65,6 +67,12 @@ const BookDetailsView = ({ userBook }) => {
         <h6 className={styles.descriptionTitle}>Description</h6>
         <p className={styles.description}>{userBook.book.description}</p>
       </div>
+      <button
+        className={styles.closeButton}
+        onClick={() => navigate(`/app/book-details/${userBook.book._id}`)}
+      >
+        more details
+      </button>
     </div>
   );
 };
