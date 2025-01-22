@@ -1,4 +1,3 @@
-import React from "react";
 import { ResponsiveSlider } from "../../../components";
 import { BookCard, RequestBadge } from "../../../features/library";
 import styles from "../DashboardPage.module.scss";
@@ -10,6 +9,7 @@ const BookRequestsSection = ({
   activeCard,
   setActiveCard,
   menuItems,
+  bookCardClickHandler,
 }) => {
   const renderBookRequest = (userBook) => {
     const {
@@ -41,6 +41,7 @@ const BookRequestsSection = ({
           setActive={setActiveCard}
           isActive={activeCard === _id}
           menuItems={bookRequestMenuItems}
+          bookCardClickHandler={() => bookCardClickHandler(userBookSnapshot)}
         />
       </RequestBadge>
     );

@@ -9,6 +9,7 @@ const CurrentReadSection = ({
   activeCard,
   setActiveCard,
   menuItems,
+  bookCardClickHandler,
 }) => {
   const EmptyStatePrompt = ({ title, text, route }) => {
     return (
@@ -42,6 +43,7 @@ const CurrentReadSection = ({
         isActive={activeCard === _id}
         setActive={setActiveCard}
         menuItems={menuItems}
+        bookCardClickHandler={bookCardClickHandler}
       />
     );
   };

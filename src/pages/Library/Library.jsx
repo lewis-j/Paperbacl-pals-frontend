@@ -66,6 +66,9 @@ const Library = () => {
             currentPage={currentPage}
             setActive={setActiveCardId}
             isActive={activeCardId === _id}
+            bookCardClickHandler={() =>
+              modalActions.viewUserBookDetails(userBookSnapShot)
+            }
           />
         </BookCardBadge>
       </BookCol>
@@ -105,7 +108,9 @@ const Library = () => {
             menuItems={checkedInMenuItems(userBookSnapshot)}
             isActive={activeCardId === _id}
             setActive={setActiveCardId}
-            onClick={() => modalActions.viewUserBookDetails(userBookSnapshot)}
+            bookCardClickHandler={() =>
+              modalActions.viewUserBookDetails(userBookSnapshot)
+            }
           />
         </RequestBadge>
       </Col>

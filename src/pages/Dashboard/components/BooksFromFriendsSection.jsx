@@ -1,4 +1,3 @@
-import React from "react";
 import { ResponsiveSlider } from "../../../components";
 import { UserBookCardSm } from "../../../features/library";
 
@@ -10,6 +9,7 @@ const BooksFromFriendsSection = ({
   activeCard,
   setActiveCard,
   menuItems,
+  bookCardClickHandler,
 }) => {
   console.log("books in booksFromFriendsSection", books);
   const renderBook = (userBook, idx) => {
@@ -28,6 +28,7 @@ const BooksFromFriendsSection = ({
         setActive={setActiveCard}
         isActive={activeCard === _id}
         menuItems={menuItems(userBookSnapshot)}
+        bookCardClickHandler={() => bookCardClickHandler(userBookSnapshot)}
       />
     );
   };

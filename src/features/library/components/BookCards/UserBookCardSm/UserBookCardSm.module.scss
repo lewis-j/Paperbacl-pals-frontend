@@ -25,6 +25,11 @@ $transitionSpeed: 0.1s;
   img {
     height: 12.3em;
     width: 9em;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 }
 

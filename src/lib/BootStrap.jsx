@@ -9,11 +9,17 @@ const Row = ({ children, className = "", style = {} }) => {
 };
 
 const Col = ({ sm, md, xl, children, className = "", style = {} }) => {
-  // Construct the className string based on the props
-  const bsClassName = `col-sm-${sm} col-md-${md} col-xl-${xl}`;
+  // Construct the className string based on defined props only
+  const sizeClasses = [
+    sm && `col-sm-${sm}`,
+    md && `col-md-${md}`,
+    xl && `col-xl-${xl}`,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <div className={`${bsClassName} ${className}`} style={style}>
+    <div className={`${sizeClasses} ${className}`.trim()} style={style}>
       {children}
     </div>
   );

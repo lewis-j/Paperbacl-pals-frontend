@@ -16,13 +16,14 @@
 .sliderWrapper {
   position: relative;
   width: 100%;
-  max-width: 90vw;
+  margin-bottom: 2em;
 }
 
-//   :global(.slick-track) {
-//     display: flex;
-//     align-items: stretch;
-//   }
+:global(.slick-track) {
+  // display: flex;
+  // align-items: stretch;
+  // margin-top: 1.5em;
+}
 
 //   :global(.slick-list) {
 //     overflow: hidden;
@@ -33,5 +34,4 @@
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  padding: 0 10px;
 }

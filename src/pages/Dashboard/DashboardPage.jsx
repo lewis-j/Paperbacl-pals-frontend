@@ -12,6 +12,7 @@ import { useBookSelectors } from "../../features/library/hooks/useBookSelectors"
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useLibraryModalManager } from "../../features/library/hooks/useLibraryModalManager";
+import { Col, Row } from "../../lib/BootStrap";
 
 /**
  * Dashboard page component that organizes and displays the user's book activities.
@@ -52,7 +53,8 @@ export const DashboardPage = () => {
    *   renderModal: Function
    * }}
    */
-  const { menuItems, renderModal } = useLibraryModalManager(setActiveCardId);
+  const { menuItems, renderModal, modalActions } =
+    useLibraryModalManager(setActiveCardId);
 
   const fromFriendsMenuItems = menuItems.booksFromFriends;
   const toFriendsMenuItems = menuItems.booksToFriends;
@@ -61,32 +63,52 @@ export const DashboardPage = () => {
   return (
     <div className={`container ${styles.container}`}>
       {renderModal()}
-      <div className={styles.sectionsWrapper}>
-        <CurrentReadSection
-          currentRead={currentRead}
-          activeCard={activeCardId}
-          setActiveCard={setActiveCardId}
-          menuItems={menuItems.currentRead(currentRead)}
-        />
-        <BooksFromFriendsSection
-          books={booksFromFriends}
-          activeCard={activeCardId}
-          setActiveCard={setActiveCardId}
-          menuItems={fromFriendsMenuItems}
-        />
-        <BooksToFriendsSection
-          books={booksToFriends}
-          activeCard={activeCardId}
-          setActiveCard={setActiveCardId}
-          menuItems={toFriendsMenuItems}
-        />
-        <BookRequestsSection
-          requests={ownedBookRequests}
-          activeCard={activeCardId}
-          setActiveCard={setActiveCardId}
-          menuItems={requestMenuItems}
-        />
-      </div>
+      <Row className={styles.sectionsWrapper}>
+        <Col sm={12} md={6}>
+          <CurrentReadSection
+            currentRead={currentRead}
+            activeCard={activeCardId}
+            setActiveCard={setActiveCardId}
+            menuItems={menuItems.currentRead(currentRead)}
+            bookCardClickHandler={() =>
+              modalActions.viewUserBookDetails(currentRead)
+            }
+          />
+        </Col>
+        <Col sm={12} md={6}>
+          <BooksFromFriendsSection
+            books={booksFromFriends}
+            activeCard={activeCardId}
+            setActiveCard={setActiveCardId}
+            menuItems={fromFriendsMenuItems}
+            bookCardClickHandler={(userBook) =>
+              modalActions.viewUserBookDetails(userBook)
+            }
+          />
+        </Col>
+        <Col sm={12} md={6}>
+          <BooksToFriendsSection
+            books={booksToFriends}
+            activeCard={activeCardId}
+            setActiveCard={setActiveCardId}
+            menuItems={toFriendsMenuItems}
+            bookCardClickHandler={(userBook) =>
+              modalActions.viewUserBookDetails(userBook)
+            }
+          />
+        </Col>
+        <Col sm={12} md={6}>
+          <BookRequestsSection
+            requests={ownedBookRequests}
+            activeCard={activeCardId}
+            setActiveCard={setActiveCardId}
+            menuItems={requestMenuItems}
+            bookCardClickHandler={(userBook) =>
+              modalActions.viewUserBookDetails(userBook)
+            }
+          />
+        </Col>
+      </Row>
     </div>
   );
 };

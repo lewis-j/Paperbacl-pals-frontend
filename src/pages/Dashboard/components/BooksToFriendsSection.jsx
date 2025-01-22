@@ -10,6 +10,7 @@ const BooksToFriendsSection = ({
   activeCard,
   setActiveCard,
   menuItems,
+  bookCardClickHandler,
 }) => {
   const renderBook = (userBook) => {
     const {
@@ -46,6 +47,7 @@ const BooksToFriendsSection = ({
             setActive={setActiveCard}
             isActive={activeCard === _id}
             menuItems={toFriendsmenuItems}
+            bookCardClickHandler={() => bookCardClickHandler(userBookSnapshot)}
           />
         </BookCardBadge>
       </div>

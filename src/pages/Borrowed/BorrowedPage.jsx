@@ -14,7 +14,7 @@ const BorrowedPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [activeCardId, setActiveCardId] = useState("");
-  const { menuItems, runAction, renderModal } =
+  const { menuItems, runAction, renderModal, modalActions } =
     useLibraryModalManager(setActiveCardId);
   const isBorrower = true;
 
@@ -43,6 +43,9 @@ const BorrowedPage = () => {
             setActive={setActiveCardId}
             isActive={activeCardId === _id}
             menuItems={menuItems(userBookSnapshot)}
+            bookCardClickHandler={() =>
+              modalActions.viewUserBookDetails(userBookSnapshot)
+            }
           />
         </Col>
       );

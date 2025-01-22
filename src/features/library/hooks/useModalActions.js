@@ -13,8 +13,6 @@ export const useModalActions = (openModal) => {
     openModal,
 
     // Book Reading Progress
-    viewBookDetails: (bookInfo) =>
-      openModal(MODAL_TYPES.VIEW_BOOK_DETAILS, bookInfo),
     viewUserBookDetails: (userBook) =>
       openModal(MODAL_TYPES.VIEW_BOOK_DETAILS, { userBook }),
     updatePageCount: (userBook) =>

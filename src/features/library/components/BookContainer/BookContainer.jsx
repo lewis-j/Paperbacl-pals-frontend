@@ -90,14 +90,16 @@ const BookContainer = ({ children: cards, noContent = defaultNoContent }) => {
               </Col>
             ))}
           {cards.length > renderBookCount && (
-            <Button
-              className={styles.showMore}
-              icon={faArrowDown}
-              variant="accept"
-              onClick={handleClick}
-            >
-              Show more
-            </Button>
+            <div className={styles.showMoreWrapper}>
+              <Button
+                className={styles.showMore}
+                icon={faArrowDown}
+                variant="accept"
+                onClick={handleClick}
+              >
+                Show more
+              </Button>
+            </div>
           )}
         </Row>
       </>

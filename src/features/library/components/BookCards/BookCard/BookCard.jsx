@@ -10,7 +10,7 @@ const BookCard = ({
   isActive = false,
   setActive,
   badge = null,
-  onClick,
+  bookCardClickHandler,
 }) => {
   const { coverImg, title } = book;
 
@@ -36,7 +36,9 @@ const BookCard = ({
     <div className={styles.container}>
       <div
         className={`${styles.book} ${isActive ? styles.isActive : ""}`}
-        onClick={onClick}
+        onClick={() => {
+          if (!isActive) bookCardClickHandler();
+        }}
       >
         {badge && !isActive && (
           <div className={styles.badgeWrapper}>{badge}</div>

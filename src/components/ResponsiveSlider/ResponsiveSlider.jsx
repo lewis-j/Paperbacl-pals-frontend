@@ -28,16 +28,17 @@ const ResponsiveSlider = ({ className, children }) => {
   // const getSlideItems = (num) => Math.min(children?.length || 0, num);
   const slideCount = children?.length || 0;
 
-  const createSettingsWithSetPoint = (slides, totalSlides) => {
+  const createSettingsWithSetPoint = (
+    slides,
+    totalSlides,
+    showArrows = false
+  ) => {
     const isOverContainer = slides > totalSlides;
-    console.log("slides", slides);
-    console.log("totalSlides", totalSlides);
-    console.log("isOverContainer", isOverContainer);
     return {
-      dots: isOverContainer,
-      slidesToShow: totalSlides,
-      nextArrow: isOverContainer ? <NextArrow /> : null,
-      prevArrow: isOverContainer ? <PrevArrow /> : null,
+      dots: true,
+      slidesToShow: Math.min(slides, totalSlides),
+      nextArrow: isOverContainer && showArrows ? <NextArrow /> : null,
+      prevArrow: isOverContainer && showArrows ? <PrevArrow /> : null,
       swipeToSlide: isOverContainer,
       swipe: isOverContainer,
       infinite: isOverContainer,
@@ -47,21 +48,32 @@ const ResponsiveSlider = ({ className, children }) => {
   var settings = {
     className: _s(className, styles.container),
     ...createSettingsWithSetPoint(slideCount, 3),
-    infinite: false,
     speed: 500,
     slidesToScroll: 1,
-    centerMode: true,
+    centerMode: false,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1408,
         settings: {
-          ...createSettingsWithSetPoint(slideCount, 3),
+          ...createSettingsWithSetPoint(slideCount, 2),
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 1024,
         settings: {
-          ...createSettingsWithSetPoint(slideCount, 2),
+          ...createSettingsWithSetPoint(slideCount, 1),
+        },
+      },
+      {
+        breakpoint: 990,
+        settings: {
+          ...createSettingsWithSetPoint(slideCount, 1),
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          ...createSettingsWithSetPoint(slideCount, 2, true),
         },
       },
       {

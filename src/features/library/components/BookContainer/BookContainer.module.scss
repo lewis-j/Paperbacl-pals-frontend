@@ -14,7 +14,11 @@
   border-radius: 10px;
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 40%);
 }
-
+.showMoreWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .showMore {
   margin-top: 1em;
 }

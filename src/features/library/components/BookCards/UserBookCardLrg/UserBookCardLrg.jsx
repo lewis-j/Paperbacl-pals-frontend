@@ -1,4 +1,3 @@
-import React from "react";
 import { Avatar, Button, ProgressBar } from "../../../../../components";
 
 import "./UserCardLrg.scss";
@@ -18,6 +17,7 @@ const UserBookCardLrg = ({
   menuItems = [],
   isActive,
   setActive,
+  bookCardClickHandler,
 }) => {
   const { coverImg, authors, title, pageCount = 0 } = book;
   const { username, profilePic } = user;
@@ -29,13 +29,16 @@ const UserBookCardLrg = ({
       : getProgressInPercent(currentPage, pageCount);
 
   return (
-    <div className={styles.container} style={{ maxWidth: "540px" }}>
+    <div className={styles.container}>
       {!isActive && menuItems.length !== 0 && (
         <div className={styles.menuBtn} onClick={() => setActive(userCard_id)}>
           <FontAwesomeIcon icon={faBars} size="lg" />
         </div>
       )}
-      <div className={styles.imgContainer}>
+      <div
+        className={styles.imgContainer}
+        onClick={() => bookCardClickHandler()}
+      >
         <img
           src={coverImg}
           alt={title}

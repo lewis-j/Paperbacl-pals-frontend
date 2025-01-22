@@ -15,6 +15,7 @@ const UserBookCardSm = ({
   menuItems = [],
   isActive = false,
   setActive,
+  bookCardClickHandler,
 }) => {
   const { coverImg, title, pageCount = 0 } = book;
   const { username, profilePic } = user;
@@ -42,7 +43,15 @@ const UserBookCardSm = ({
       };
   return (
     <>
-      <div className={styles.container}>
+      <div
+        className={styles.container}
+        onClick={(e) => {
+          if (!isActive) {
+            e.preventDefault();
+            bookCardClickHandler();
+          }
+        }}
+      >
         <div className={cardFilter.imgStyle}>
           <img
             src={coverImg}
@@ -77,7 +86,13 @@ const UserBookCardSm = ({
             <Progress className={styles.progress} value={readingProgress} />
           </div>
           {menuItems.length > 0 && (
-            <div className={styles.menuBtn} onClick={cardFilter.menuBtnClick}>
+            <div
+              className={styles.menuBtn}
+              onClick={(e) => {
+                e.stopPropagation();
+                cardFilter.menuBtnClick();
+              }}
+            >
               <FontAwesomeIcon size="lg" type="button" icon={cardFilter.icon} />
             </div>
           )}

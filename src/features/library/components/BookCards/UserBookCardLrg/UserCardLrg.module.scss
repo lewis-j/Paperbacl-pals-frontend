@@ -4,10 +4,18 @@
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  margin: 1em auto;
-  box-shadow: $standard-box-shadow;
-  background-color: $grey-1;
-  border-radius: 0.25rem;
+  justify-content: center;
+  gap: 1em;
+  padding: 1em;
+  margin: 0 auto;
+  min-height: 300px;
+  width: 100%;
+  box-shadow: $sharp-box-shadow;
+  background-color: $grey-3;
+  border-radius: 0.5rem;
+  @media (min-width: 768px) {
+    flex-wrap: nowrap;
+  }
 }
 .progress {
   height: 0.5em;
@@ -21,7 +29,14 @@
   background-color: $grey-2;
 }
 .imgContainer {
-  width: 100%;
+  width: 10em;
+  img {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 }
 
 .coverImg {
@@ -29,7 +44,7 @@
   max-width: 15em;
   margin: 0 auto;
   width: 100%;
-  padding: 27px;
+  max-width: 10em;
 }
 
 .body {
@@ -37,9 +52,6 @@
 }
 
 @media (min-width: 540px) {
-  .imgContainer {
-    flex-basis: 33%;
-  }
   .body {
     flex-basis: 66%;
   }
@@ -67,6 +79,7 @@
   height: 100%;
   width: 100%;
   background-color: $menu-background;
+  border-radius: 0.5rem;
 }
 
 .menuItems {

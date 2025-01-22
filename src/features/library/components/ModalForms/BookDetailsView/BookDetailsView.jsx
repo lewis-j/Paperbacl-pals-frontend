@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import * as asyncStatus from "../../../../../data/asyncStatus";
-import { Loading } from "../../../../../components";
+import { Button, Loading } from "../../../../../components";
 import { selectUserRatingForBook } from "../../../../../features/Ratings/RatingsSlice";
 import styles from "./BookDetailsView.module.scss";
 import { StarRating } from "../../../../Ratings/components";
@@ -67,12 +67,14 @@ const BookDetailsView = ({ userBook }) => {
         <h6 className={styles.descriptionTitle}>Description</h6>
         <p className={styles.description}>{userBook.book.description}</p>
       </div>
-      <button
-        className={styles.closeButton}
-        onClick={() => navigate(`/app/book-details/${userBook.book._id}`)}
-      >
-        more details
-      </button>
+      <div className={styles.moreDetailsWrapper}>
+        <Button
+          className={styles.closeButton}
+          onClick={() => navigate(`/app/book-details/${userBook.book._id}`)}
+        >
+          More details
+        </Button>
+      </div>
     </div>
   );
 };
