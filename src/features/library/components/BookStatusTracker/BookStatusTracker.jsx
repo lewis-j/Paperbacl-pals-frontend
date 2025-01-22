@@ -77,6 +77,7 @@ const BookStatusTracker = ({
       if (statusConfig[statusObj.status]) {
         statusConfig[statusObj.status].timestamp = statusObj.timestamp;
         if (userBook.request.pictureRequired && statusObj.imageUrl) {
+          console.log("statusObj.imageUrl", statusObj.imageUrl);
           statusConfig[statusObj.status].img = statusObj.imageUrl;
         }
       }

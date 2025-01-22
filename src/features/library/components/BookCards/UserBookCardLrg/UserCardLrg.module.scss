@@ -61,6 +61,7 @@
   position: absolute;
   top: 0px;
   display: flex;
+  gap: 1em;
   flex-direction: column;
   padding: 1em 1em;
   height: 100%;
@@ -71,8 +72,10 @@
 .menuItems {
   display: flex;
   flex-direction: column;
+  gap: 1em;
   width: 100%;
   align-items: center;
+  margin-top: 1em;
 }
 
 .menuItem {

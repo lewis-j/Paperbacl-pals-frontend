@@ -2,7 +2,7 @@ import styles from "./BookContainer.module.scss";
 import { IconBookOff } from "@tabler/icons";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { NoContent, Placeholder, Button, FadeIn } from "../../../../components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Row, Col } from "../../../../lib/BootStrap";
 
 const defaultNoContent = {
@@ -15,14 +15,39 @@ const defaultNoContent = {
 };
 
 const BookContainer = ({ children: cards, noContent = defaultNoContent }) => {
-  const [renderBookCount, setRenderBookCount] = useState(12);
+  const renderCount = 12;
+  const getInitialCount = () => {
+    const width = window.innerWidth;
+    if (width >= 1200) {
+      // xl breakpoint
+      return 12;
+    } else if (width >= 768) {
+      // md breakpoint
+      return 8;
+    } else if (width >= 576) {
+      return 6; // sm and xs breakpoints
+    } else {
+      return 2; // xs breakpoints
+    }
+  };
+
+  const [renderBookCount, setRenderBookCount] = useState(getInitialCount());
   const [loadingSection, setLoadingSection] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setRenderBookCount(getInitialCount());
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleClick = () => {
     setLoadingSection(true);
     setTimeout(() => {
       setLoadingSection(false);
-      setRenderBookCount((previousState) => previousState + 12);
+      setRenderBookCount((previousState) => previousState + renderCount);
     }, 300);
   };
 
@@ -51,7 +76,7 @@ const BookContainer = ({ children: cards, noContent = defaultNoContent }) => {
     const books = cards.slice(0, renderBookCount);
     const loadingCount = cards.slice(
       renderBookCount,
-      renderBookCount + 12
+      renderBookCount + renderCount
     ).length;
 
     return (
@@ -65,7 +90,12 @@ const BookContainer = ({ children: cards, noContent = defaultNoContent }) => {
               </Col>
             ))}
           {cards.length > renderBookCount && (
-            <Button icon={faArrowDown} variant="accept" onClick={handleClick}>
+            <Button
+              className={styles.showMore}
+              icon={faArrowDown}
+              variant="accept"
+              onClick={handleClick}
+            >
               Show more
             </Button>
           )}

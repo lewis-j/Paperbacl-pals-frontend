@@ -61,30 +61,32 @@ export const DashboardPage = () => {
   return (
     <div className={`container ${styles.container}`}>
       {renderModal()}
-      <CurrentReadSection
-        currentRead={currentRead}
-        activeCard={activeCardId}
-        setActiveCard={setActiveCardId}
-        menuItems={menuItems.currentRead(currentRead)}
-      />
-      <BooksFromFriendsSection
-        books={booksFromFriends}
-        activeCard={activeCardId}
-        setActiveCard={setActiveCardId}
-        menuItems={fromFriendsMenuItems}
-      />
-      <BooksToFriendsSection
-        books={booksToFriends}
-        activeCard={activeCardId}
-        setActiveCard={setActiveCardId}
-        menuItems={toFriendsMenuItems}
-      />
-      <BookRequestsSection
-        requests={ownedBookRequests}
-        activeCard={activeCardId}
-        setActiveCard={setActiveCardId}
-        menuItems={requestMenuItems}
-      />
+      <div className={styles.sectionsWrapper}>
+        <CurrentReadSection
+          currentRead={currentRead}
+          activeCard={activeCardId}
+          setActiveCard={setActiveCardId}
+          menuItems={menuItems.currentRead(currentRead)}
+        />
+        <BooksFromFriendsSection
+          books={booksFromFriends}
+          activeCard={activeCardId}
+          setActiveCard={setActiveCardId}
+          menuItems={fromFriendsMenuItems}
+        />
+        <BooksToFriendsSection
+          books={booksToFriends}
+          activeCard={activeCardId}
+          setActiveCard={setActiveCardId}
+          menuItems={toFriendsMenuItems}
+        />
+        <BookRequestsSection
+          requests={ownedBookRequests}
+          activeCard={activeCardId}
+          setActiveCard={setActiveCardId}
+          menuItems={requestMenuItems}
+        />
+      </div>
     </div>
   );
 };
