@@ -5,6 +5,7 @@ import {
   BookCard,
   BookContainer,
   bookRequestStatus,
+  UserBookCardLrg,
 } from "../../../features/library";
 import { upperFirst } from "../../../utilities/stringUtil";
 import styles from "./Library.module.scss";
@@ -34,8 +35,6 @@ const Library = () => {
     );
     const _userBook = { ...userBook, request: foundRequest };
 
-    console.log("userBook in filterRequest", userBook);
-
     switch (foundRequest?.status) {
       case bookRequestStatus.CHECKED_IN:
         return {
@@ -61,6 +60,31 @@ const Library = () => {
     </Col>
   );
 
+  const renderCurrentRead = (userBook) => {
+    console.log("userBook in renderCurrentRead", userBook);
+    const { _id, book, owner, requests } = userBook;
+    const currentRequest = requests.find(
+      (req) => req.sender._id === currentFriend._id
+    );
+    console.log("currentRequest", userBook.requests, currentFriend._id);
+    if (!currentRequest) return null;
+
+    const { currentPage, dueDate } = currentRequest;
+
+    return (
+      <UserBookCardLrg
+        _id={_id}
+        book={book}
+        user={owner}
+        dueDate={dueDate}
+        currentPage={currentPage}
+        isActive={activeCardId === _id}
+        setActive={setActiveCardId}
+        menuItems={menuItems}
+      />
+    );
+  };
+
   const renderCheckedOutUserBookCard = (userBook, i) => {
     const { _id, book, dueDate, currentPage, sender } = userBook;
 
@@ -84,7 +108,6 @@ const Library = () => {
   };
 
   const renderCheckedInBookCards = (userBooks) => {
-    console.log("userBooks in renderCheckedInBookCards", userBooks);
     return userBooks.map((userBook) => {
       const { _id, book } = userBook;
       const { menu, badge } = filterRequest(userBook);
@@ -110,11 +133,14 @@ const Library = () => {
       <div className="container">
         {renderModal()}
         <div className={styles.title}>
-          <h1>
-            {upperFirst(username)}
-            's Library
-          </h1>
+          <h1>{`${upperFirst(username)}'s Library`}</h1>
         </div>
+        {currentFriend?.currentRead && (
+          <div>
+            <h4>Current read</h4>
+            <div>{renderCurrentRead(currentFriend.currentRead)}</div>
+          </div>
+        )}
         <div>
           <h4 className={styles.subtitle}>Checked in Books</h4>
         </div>

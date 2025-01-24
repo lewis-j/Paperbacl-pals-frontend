@@ -11,6 +11,20 @@
   }
 }
 
+.userDetails {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+
+  img {
+    border-radius: 50%;
+    max-width: 2rem;
+  }
+}
+
 .moreDetailsWrapper {
   display: flex;
   justify-content: flex-end;

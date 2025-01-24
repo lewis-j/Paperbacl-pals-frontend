@@ -5,9 +5,6 @@ import Tesseract from "tesseract.js";
 import styles from "./OCRButton.module.scss";
 import { CameraCapture } from "../CameraCapture/CameraCapture";
 
-const BASE_PATH =
-  process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL : "";
-
 const OCRButton = ({ onTextExtracted, disabled }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -19,11 +16,24 @@ const OCRButton = ({ onTextExtracted, disabled }) => {
     setIsProcessing(true);
 
     try {
-      // Create a new worker instance with direct paths
+      const basePath = import.meta.env.PROD ? import.meta.env.BASE_URL : "";
+
+      // Add logging to debug paths
+      console.log("Worker path:", `/${basePath}tesseract-core/worker.min.js`);
+      console.log(
+        "Lang path:",
+        "https://raw.githubusercontent.com/naptha/tessdata/gh-pages/4.0.0"
+      );
+      console.log(
+        "Core path:",
+        `/${basePath}tesseract-core/tesseract-core.wasm.js`
+      );
+
       workerRef.current = await Tesseract.createWorker({
-        workerPath: `${BASE_PATH}/tesseract-core/worker.min.js`,
-        langPath: `${BASE_PATH}/tesseract-core/lang-data`,
-        corePath: `${BASE_PATH}/tesseract-core/tesseract-core.wasm.js`,
+        workerPath: `/${basePath}tesseract-core/worker.min.js`,
+        langPath:
+          "https://raw.githubusercontent.com/naptha/tessdata/gh-pages/4.0.0",
+        corePath: `/${basePath}tesseract-core/tesseract-core.wasm.js`,
         logger: (m) => {
           if (m.status === "recognizing text") {
             setProgress(parseInt(m.progress * 100));
@@ -31,7 +41,7 @@ const OCRButton = ({ onTextExtracted, disabled }) => {
         },
       });
 
-      // Initialize worker with simpler settings
+      // Initialize without explicit path since we set langPath correctly
       await workerRef.current.loadLanguage("eng");
       await workerRef.current.initialize("eng");
       await workerRef.current.setParameters({

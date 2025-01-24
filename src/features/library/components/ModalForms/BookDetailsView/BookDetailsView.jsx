@@ -61,6 +61,15 @@ const BookDetailsView = ({ userBook }) => {
           >
             {existingRating ? "Edit Rating" : "Rate book"}
           </button>
+          {userBook?.sender && (
+            <div className={styles.userDetails}>
+              <img
+                src={userBook?.sender?.profilePic}
+                alt={userBook?.sender.username}
+              />
+              <div>{userBook?.sender?.username}</div>
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.descriptionContainer}>
