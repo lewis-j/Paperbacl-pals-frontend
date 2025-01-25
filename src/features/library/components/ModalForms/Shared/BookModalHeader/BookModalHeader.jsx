@@ -15,6 +15,7 @@ const BookModalHeader = ({
   const progressPercent = getProgressInPercent(currentPage, pageCount);
 
   console.log("sender", sender);
+  console.log("owner", owner);
 
   return (
     <div className={styles.bookHeader}>
@@ -31,13 +32,13 @@ const BookModalHeader = ({
           <h3 className={styles.title}>{title}</h3>
           <p className={styles.authors}>{authors.join(", ")}</p>
 
-          {showOwner && owner && (
+          {showOwner && owner && Object.keys(owner).length > 0 && (
             <div className={styles.ownerInfo}>
               <Avatar imgSrc={owner.profilePic} username={owner.username} />
               <span className={styles.ownerName}>{owner.username}</span>
             </div>
           )}
-          {sender && (
+          {sender && Object.keys(sender).length > 0 && (
             <div className={styles.senderInfo}>
               <Avatar imgSrc={sender.profilePic} username={sender.username} />
               <span className={styles.senderName}>{sender.username}</span>

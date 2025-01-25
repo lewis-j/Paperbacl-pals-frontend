@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, Button } from "reactstrap";
 import {
   IconBook,
@@ -65,7 +64,6 @@ const BookStatusTracker = ({
   onAction,
   isColumn = false,
 }) => {
-  console.log("userBook in tracker", userBook);
   const userBookSnapshot = { ...userBook };
   const currentStatus = userBook?.request?.status;
   const currentStatusConfig = statusConfig[currentStatus];
@@ -77,13 +75,11 @@ const BookStatusTracker = ({
       if (statusConfig[statusObj.status]) {
         statusConfig[statusObj.status].timestamp = statusObj.timestamp;
         if (userBook.request.pictureRequired && statusObj.imageUrl) {
-          console.log("statusObj.imageUrl", statusObj.imageUrl);
           statusConfig[statusObj.status].img = statusObj.imageUrl;
         }
       }
     });
   }
-  console.log("statusConfig", statusConfig);
 
   const getActionButton = () => {
     const action = isBorrower
@@ -96,7 +92,10 @@ const BookStatusTracker = ({
       <Button
         color="primary"
         className={styles.actionButton}
-        onClick={() => onAction(userBookSnapshot)}
+        onClick={() => {
+          console.log("userbook snapshot:", userBookSnapshot);
+          onAction(userBookSnapshot);
+        }}
       >
         {action}
       </Button>
@@ -104,6 +103,7 @@ const BookStatusTracker = ({
   };
 
   const renderStatusStep = (status, isActive) => {
+    console.log("status", status);
     const StatusIcon = status.icon;
     return (
       <div
@@ -136,8 +136,6 @@ const BookStatusTracker = ({
       </div>
     );
   };
-
-  console.log("userBook", userBook);
 
   return (
     <>

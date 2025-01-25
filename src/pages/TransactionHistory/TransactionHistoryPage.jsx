@@ -2,9 +2,12 @@ import { useSelector } from "react-redux";
 import { selectBooksWithHistory } from "../../features/library/userBooksSlice";
 import styles from "./TransactionHistoryPage.module.scss";
 import BookStatusTracker from "../../features/library/components/BookStatusTracker/BookStatusTracker";
+import { useLibraryModalManager } from "../../features/library/hooks/useLibraryModalManager";
 
 const TransactionHistoryPage = () => {
   const booksWithHistory = useSelector(selectBooksWithHistory);
+
+  const { runAction, renderModal } = useLibraryModalManager();
 
   const sortedBooks = [...booksWithHistory].sort((a, b) => {
     const aHistory =
@@ -21,11 +24,6 @@ const TransactionHistoryPage = () => {
 
     return bLatest - aLatest;
   });
-
-  console.log(
-    "*************************************************sorted books",
-    sortedBooks
-  );
 
   return (
     <div className={styles.container}>
@@ -51,10 +49,12 @@ const TransactionHistoryPage = () => {
                 },
               }}
               isBorrower={!bookItem.isOwned}
+              onAction={runAction(!bookItem.isOwned)}
             />
           );
         })}
       </div>
+      {renderModal()}
     </div>
   );
 };

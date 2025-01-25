@@ -5,7 +5,6 @@ import { Loading } from "../../components";
 import {
   getBookRatings,
   selectBookRatings,
-  selectUserRatingForBook,
 } from "../../features/Ratings/RatingsSlice";
 import styles from "./BookDetailsPage.module.scss";
 import { StarRating } from "../../features/Ratings/components";
@@ -19,9 +18,6 @@ const BookDetailsPage = () => {
   const dispatch = useDispatch();
   const userBook = useSelector((state) => selectBookById(state, bookId));
   const userBookAsyncStatus = useSelector((state) => state.userBooks.status);
-  const existingRating = useSelector((state) =>
-    selectUserRatingForBook(state, bookId)
-  );
   const bookRatings = useSelector((state) => selectBookRatings(state, bookId));
 
   console.log("bookRatings", bookRatings);
@@ -30,7 +26,7 @@ const BookDetailsPage = () => {
     dispatch(getBookRatings({ bookId }));
   }, [dispatch, bookId]);
 
-  const rating = existingRating?.rating || userBook?.book?.averageRating;
+  const rating = userBook?.book?.averageRating;
 
   const handleRatingChange = (newRating) => {
     console.log(newRating);

@@ -15,10 +15,9 @@ const BookDetailsView = ({ userBook }) => {
     selectUserRatingForBook(state, userBook?.book?._id)
   );
 
-  const rating = existingRating?.rating || userBook.book.averageRating;
+  console.log("existingRating", existingRating);
 
-  console.log("userBook in book details view", userBook);
-  console.log("existingRating in book details view", existingRating);
+  const rating = existingRating?.rating || userBook.book.averageRating;
 
   const handleRatingChange = (newRating) => {
     modalActions.rateAndReviewBook(userBook, newRating);

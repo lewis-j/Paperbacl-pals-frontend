@@ -1,6 +1,22 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  createEntityAdapter,
+} from "@reduxjs/toolkit";
 import * as ratingsThunks from "./RatingsThunks";
 import * as status from "../../data/asyncStatus";
+
+// Create the adapter
+const ratingsAdapter = createEntityAdapter({
+  selectId: (rating) => rating._id,
+});
+
+// Create the initial state using the adapter
+const initialState = ratingsAdapter.getInitialState({
+  bookRatings: {},
+  status: status.IDLE,
+  error: null,
+});
 
 export const getUsersBookRatings = createAsyncThunk(
   "ratings/getUsersBookRatings",
@@ -24,28 +40,18 @@ export const updateRating = createAsyncThunk(
 
 export const ratingsSlice = createSlice({
   name: "ratings",
-  initialState: {
-    ratings: [],
-    bookRatings: {},
-    status: status.IDLE,
-    error: null,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getUsersBookRatings.fulfilled, (state, { payload }) => {
-        state.ratings = payload;
+        ratingsAdapter.setAll(state, payload);
       })
       .addCase(rateBook.fulfilled, (state, { payload }) => {
-        state.ratings.push(payload.rating);
+        ratingsAdapter.addOne(state, payload.rating);
       })
       .addCase(updateRating.fulfilled, (state, { payload }) => {
-        const index = state.ratings.findIndex(
-          (r) => r._id === payload.rating._id
-        );
-        if (index !== -1) {
-          state.ratings[index] = payload.rating;
-        }
+        ratingsAdapter.upsertOne(state, payload.rating);
       })
       .addCase(getBookRatings.fulfilled, (state, { payload }) => {
         state.bookRatings[payload.bookId] = payload.ratings;
@@ -82,10 +88,26 @@ export const ratingsSlice = createSlice({
   },
 });
 
-export const selectUserRatingForBook = (state, bookId) =>
-  state.bookRatings.ratings.find((rating) => rating.book._id === bookId);
+// Export the generated selectors
+export const {
+  selectAll: selectAllRatings,
+  selectById: selectRatingById,
+  selectIds: selectRatingIds,
+} = ratingsAdapter.getSelectors((state) => {
+  // Add a safety check to handle undefined state
+  return state?.bookRatings ?? initialState;
+});
 
-export const selectBookRatings = (state, bookId) =>
-  state.bookRatings.bookRatings[bookId] || [];
+// Update the custom selector with safety checks
+export const selectUserRatingForBook = (state, bookId) => {
+  if (!state?.bookRatings || !bookId) return null;
+  const rating = selectAllRatings(state);
+  return rating.find((rating) => rating?.book?._id === bookId);
+};
+
+export const selectBookRatings = (state, bookId) => {
+  if (!state?.bookRatings?.bookRatings || !bookId) return [];
+  return state.bookRatings.bookRatings[bookId] || [];
+};
 
 export default ratingsSlice.reducer;
