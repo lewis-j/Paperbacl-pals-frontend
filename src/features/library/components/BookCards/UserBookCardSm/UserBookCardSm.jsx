@@ -2,9 +2,10 @@ import styles from "./UserBookCardSm.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
 import { Progress } from "reactstrap";
-import { Avatar, Button } from "../../../../../components";
+import { Avatar } from "../../../../../components";
 import { dayMonthFormat } from "../../../../../utilities/timeUtil";
 import { getProgressInPercent } from "../../../../../utilities/bookUtilities";
+import { BookMenuModal } from "../../BookMenuModal";
 
 const UserBookCardSm = ({
   _id: userCard_id,
@@ -59,22 +60,13 @@ const UserBookCardSm = ({
             referrerPolicy="no-referrer"
           />
           {menuItems.length > 0 && (
-            <div
-              className={`${styles.menu} ${isActive ? styles.menuVisible : ""}`}
-              role="menu"
-              aria-hidden={!isActive}
-            >
-              {menuItems.map(({ text, clickHandler }, i) => (
-                <Button
-                  key={`menu-item-${i}`}
-                  onClick={() => clickHandler(userCard_id)}
-                  variant="menu-white-outline"
-                  role="menuitem"
-                >
-                  {text}
-                </Button>
-              ))}
-            </div>
+            <BookMenuModal
+              isActive={isActive}
+              setActive={setActive}
+              menuItems={menuItems}
+              bookData={{ book, user, dueDate, currentPage }}
+              userCard_id={userCard_id}
+            />
           )}
         </div>
         <div className={cardFilter.infoStyle}>

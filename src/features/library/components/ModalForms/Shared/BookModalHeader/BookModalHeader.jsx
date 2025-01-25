@@ -4,9 +4,9 @@ import { getProgressInPercent } from "../../../../../../utilities/bookUtilities"
 
 const BookModalHeader = ({
   book,
-  owner,
-  sender,
-  currentPage,
+  owner = null,
+  sender = null,
+  currentPage = 0,
   dueDate = null,
   showProgress = true,
   showOwner = true,
@@ -16,6 +16,7 @@ const BookModalHeader = ({
 
   console.log("sender", sender);
   console.log("owner", owner);
+  console.log("book", book);
 
   return (
     <div className={styles.bookHeader}>

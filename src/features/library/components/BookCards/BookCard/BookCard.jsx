@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
 import styles from "./BookCard.module.scss";
-import { Button } from "../../../../../components";
+import { BookMenuModal } from "../../BookMenuModal";
 
 const BookCard = ({
   _id,
@@ -12,6 +12,7 @@ const BookCard = ({
   badge = null,
   bookCardClickHandler,
 }) => {
+  console.log("book", book);
   const { coverImg, title } = book;
 
   const cardFilter = isActive
@@ -55,18 +56,13 @@ const BookCard = ({
         </div>
         {isActive && menuItems.length !== 0 && (
           <div className={styles.menu}>
-            {menuItems.map(({ text, clickHandler }, i) => (
-              <Button
-                key={`menu-list${i}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  clickHandler();
-                }}
-                variant="menu-white-outline"
-              >
-                {text}
-              </Button>
-            ))}
+            <BookMenuModal
+              isActive={isActive}
+              setActive={setActive}
+              menuItems={menuItems}
+              bookData={{ book }}
+              userCard_id={_id}
+            />
           </div>
         )}
       </div>

@@ -77,8 +77,7 @@ const Library = () => {
 
   const renderCheckedInBookCard = (userBook) => {
     const { _id, book, status } = userBook;
-    const { coverImg, title } = book;
-    const cardInfo = { coverImg, title, status };
+    const cardInfo = { ...book, status };
     const checkedInMenuItems = (userBook) => {
       if (userBook.requests.length > 0) {
         return bookRequestMenuItems(userBook);

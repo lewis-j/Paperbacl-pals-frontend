@@ -7,6 +7,7 @@ import { getProgressInPercent } from "../../../../../utilities/bookUtilities";
 import { dayMonthFormat } from "../../../../../utilities/timeUtil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
+import { BookMenuModal } from "../../BookMenuModal";
 
 const UserBookCardLrg = ({
   _id: userCard_id,
@@ -77,16 +78,13 @@ const UserBookCardLrg = ({
             <FontAwesomeIcon icon={faClose} />
           </div>
           <div className={styles.menuItems}>
-            {menuItems.map(({ text, clickHandler }, i) => (
-              <Button
-                key={`menu-list${i}`}
-                className={styles.menuItem}
-                onClick={() => clickHandler(userCard_id)}
-                variant="menu-white-outline"
-              >
-                {text}
-              </Button>
-            ))}
+            <BookMenuModal
+              isActive={isActive}
+              setActive={setActive}
+              menuItems={menuItems}
+              bookData={{ book, user, dueDate, currentPage }}
+              userCard_id={userCard_id}
+            />
           </div>
         </div>
       )}

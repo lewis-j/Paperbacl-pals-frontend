@@ -137,7 +137,8 @@
 
   @media (max-width: 480px) {
     font-size: 0.9rem;
-    max-height: 200px;
+    max-height: 400px;
+    overflow: scroll;
   }
 }
 

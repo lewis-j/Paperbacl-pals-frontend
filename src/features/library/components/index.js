@@ -11,3 +11,4 @@ export { BookStatusTracker } from "./BookStatusTracker";
 export { BookContainer } from "./BookContainer";
 export { RequestCard } from "./RequestCard";
 export { LibrarySection } from "./LibrarySection";
+export { BookMenuModal } from "./BookMenuModal";
