@@ -111,13 +111,12 @@ const Library = () => {
     return userBooks.map((userBook) => {
       const { _id, book } = userBook;
       const { menu, badge } = filterRequest(userBook);
-      const { coverImg, title } = book;
 
       return (
         <BookCol key={`BookCards:${_id}`}>
           <BookCard
             menuItems={menu}
-            book={{ coverImg, title }}
+            book={book}
             _id={_id}
             setActive={setActiveCardId}
             isActive={activeCardId === _id}

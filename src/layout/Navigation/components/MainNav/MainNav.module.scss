@@ -4,6 +4,7 @@
   margin-top: $mobile-nav-height;
   margin-bottom: 4em;
   overflow: hidden;
+  min-height: 100vh;
 
   @media (min-width: 916px) {
     margin-top: $desktop-nav-height;

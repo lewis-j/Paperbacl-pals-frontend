@@ -10,60 +10,59 @@ import styles from "./BookStatusTracker.module.scss";
 import requestStatus from "../../../../data/requestStatus";
 import { useStatusModal } from "./hooks/useStatusModal";
 
-const statusConfig = {
-  // [requestStatus.CHECKED_IN]: {
-  //   index: 0,
-  //   label: "Available",
-  //   icon: IconBook,
-  // },
-  [requestStatus.ACCEPTED]: {
-    index: 1,
-    label: "Accepted",
-    icon: IconCheck,
-    ownerAction: "Confirm Drop-off",
-    timestamp: null,
-  },
-  [requestStatus.SENDING]: {
-    index: 2,
-    label: "Owner Drop-off",
-    icon: IconTruck,
-    borrowerAction: "Confirm Pickup",
-    timestamp: null,
-  },
-  [requestStatus.CHECKED_OUT]: {
-    index: 3,
-    label: "With Borrower",
-    icon: IconBook,
-    timestamp: null,
-  },
-  [requestStatus.IS_DUE]: {
-    index: 4,
-    label: "Due Soon",
-    icon: IconAlertCircle,
-    borrowerAction: "Confirm Drop-off",
-    timestamp: null,
-  },
-  [requestStatus.RETURNING]: {
-    index: 5,
-    label: "Lender-Drop-off",
-    icon: IconTruck,
-    ownerAction: "Confirm Return Pickup",
-    timestamp: null,
-  },
-  [requestStatus.RETURNED]: {
-    index: 6,
-    label: "Returned",
-    icon: IconRotateClockwise,
-    timestamp: null,
-  },
-};
-
 const BookStatusTracker = ({
   userBook,
   isBorrower = true,
   onAction,
   isColumn = false,
 }) => {
+  const statusConfig = {
+    // [requestStatus.CHECKED_IN]: {
+    //   index: 0,
+    //   label: "Available",
+    //   icon: IconBook,
+    // },
+    [requestStatus.ACCEPTED]: {
+      index: 1,
+      label: "Accepted",
+      icon: IconCheck,
+      ownerAction: "Confirm Drop-off",
+      timestamp: null,
+    },
+    [requestStatus.SENDING]: {
+      index: 2,
+      label: "Owner Drop-off",
+      icon: IconTruck,
+      borrowerAction: "Confirm Pickup",
+      timestamp: null,
+    },
+    [requestStatus.CHECKED_OUT]: {
+      index: 3,
+      label: "With Borrower",
+      icon: IconBook,
+      timestamp: null,
+    },
+    [requestStatus.IS_DUE]: {
+      index: 4,
+      label: "Due Soon",
+      icon: IconAlertCircle,
+      borrowerAction: "Confirm Drop-off",
+      timestamp: null,
+    },
+    [requestStatus.RETURNING]: {
+      index: 5,
+      label: "Lender-Drop-off",
+      icon: IconTruck,
+      ownerAction: "Confirm Return Pickup",
+      timestamp: null,
+    },
+    [requestStatus.RETURNED]: {
+      index: 6,
+      label: "Returned",
+      icon: IconRotateClockwise,
+      timestamp: null,
+    },
+  };
   const userBookSnapshot = { ...userBook };
   const currentStatus = userBook?.request?.status;
   const currentStatusConfig = statusConfig[currentStatus];
@@ -93,7 +92,6 @@ const BookStatusTracker = ({
         color="primary"
         className={styles.actionButton}
         onClick={() => {
-          console.log("userbook snapshot:", userBookSnapshot);
           onAction(userBookSnapshot);
         }}
       >
@@ -103,7 +101,6 @@ const BookStatusTracker = ({
   };
 
   const renderStatusStep = (status, isActive) => {
-    console.log("status", status);
     const StatusIcon = status.icon;
     return (
       <div

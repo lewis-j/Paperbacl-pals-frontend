@@ -45,7 +45,10 @@ const useNotificationModal = (notifications) => {
       (notification) => notification._id === notification_id
     );
     if (!notification) return;
-    console.log("openNotificationModal", notification);
+    console.log(
+      "openNotificationModal*************************************************************",
+      notification
+    );
     if (notification.requestType === "BookRequest") {
       setRequestType("BookRequest");
       const userBook = findBookFromRequest(notification.requestRef._id);

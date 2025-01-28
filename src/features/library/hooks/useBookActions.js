@@ -78,6 +78,10 @@ export const useBookActions = () => {
     needsPictureConfirmation = false,
   }) => {
     try {
+      console.log(
+        "requestActionAndMarkNotificationAsRead--------------------------------------------------",
+        request_id
+      );
       let imageFile = null;
       if (needsPictureConfirmation) {
         alert("picture required");

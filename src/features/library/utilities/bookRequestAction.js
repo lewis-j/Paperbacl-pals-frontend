@@ -1,12 +1,14 @@
 import requestStatus from "../../../data/requestStatus";
 
 export const runBookRequestAction = (modalActions, userBook) => {
+  console.log("runBookRequestAction", userBook);
   if (userBook.isOwned) {
     switch (userBook.request.status) {
       case requestStatus.CHECKED_IN:
         modalActions.confirmBorrowRequest(userBook);
         break;
       case requestStatus.ACCEPTED:
+        console.log("lenderConfirmDropOff", userBook);
         modalActions.lenderConfirmDropOff(userBook);
         break;
       case requestStatus.RETURNING:

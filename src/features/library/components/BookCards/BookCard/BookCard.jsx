@@ -12,7 +12,6 @@ const BookCard = ({
   badge = null,
   bookCardClickHandler,
 }) => {
-  console.log("book", book);
   const { coverImg, title } = book;
 
   const cardFilter = isActive

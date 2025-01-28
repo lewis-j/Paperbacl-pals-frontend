@@ -15,7 +15,7 @@ export const navItems = {
     { id: "home", label: "Home", icon: faHome, path: "/app" },
     {
       id: "borrowed",
-      label: "Borrowed",
+      label: "Borrowing",
       icon: faBookOpenReader,
       path: "borrowed",
     },

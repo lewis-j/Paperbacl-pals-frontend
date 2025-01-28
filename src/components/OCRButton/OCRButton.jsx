@@ -100,8 +100,7 @@ const OCRButton = ({ onTextExtracted, disabled }) => {
             canvas.toBlob(
               (processedBlob) => {
                 const imageUrl = URL.createObjectURL(processedBlob);
-                console.log("Optimized image URL:", imageUrl);
-                window.open(imageUrl, "_blank");
+
                 resolve(processedBlob);
               },
               "image/jpeg",

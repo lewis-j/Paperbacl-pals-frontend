@@ -2,7 +2,6 @@ import styles from "./FormContainer.module.scss";
 import BookModalHeader from "../BookModalHeader/BookModalHeader";
 
 const FormContainer = ({ children, bookData }) => {
-  console.log("bookData", bookData);
   return (
     <div className={styles.container}>
       <BookModalHeader
